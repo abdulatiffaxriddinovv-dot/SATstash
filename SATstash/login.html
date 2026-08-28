@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SATstash — Log In</title>
+
+<style>
+:root{
+--bg:#F4F1EA;
+--surface:#FFFDF8;
+--surface2:#F8F5EE;
+--primary:#183A37;
+--primary2:#102F2C;
+--gold:#C59D5F;
+--text:#17211F;
+--muted:#68736F;
+--border:#DED9CF;
+--shadow:0 20px 55px rgba(24,58,55,.09);
+--danger:#c85c5c;
+--success:#31956b;
+}
+
+body.night{
+--bg:#080D12;
+--surface:#101922;
+--surface2:#141F29;
+--primary:#D8B978;
+--primary2:#E5C98E;
+--gold:#D8B978;
+--text:#F3EFE6;
+--muted:#93A09D;
+--border:#26323B;
+--shadow:0 25px 70px rgba(0,0,0,.38);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+font-family:Inter,Arial,sans-serif;
+background:var(--bg);
+color:var(--text);
+transition:.4s;
+min-height:100vh;
+}
+
+.navbar{
+height:74px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 6%;
+background:var(--surface);
+border-bottom:1px solid var(--border);
+}
+
+.logo{font-size:21px;font-weight:800;text-decoration:none;color:var(--text)}
+.logo span{color:var(--gold)}
+
+.theme{
+width:38px;
+height:38px;
+border:1px solid var(--border);
+border-radius:50%;
+background:var(--surface);
+color:var(--text);
+cursor:pointer;
+}
+
+.wrap{
+max-width:420px;
+margin:80px auto;
+padding:0 22px;
+}
+
+.badge{
+display:inline-block;
+padding:7px 13px;
+border:1px solid var(--gold);
+border-radius:30px;
+color:var(--gold);
+font-size:10px;
+font-weight:800;
+letter-spacing:1.3px;
+}
+
+h1{
+font-size:34px;
+letter-spacing:-1.5px;
+margin-top:16px;
+}
+
+.subtitle{
+color:var(--muted);
+font-size:13px;
+margin-top:7px;
+margin-bottom:26px;
+}
+
+.panel{
+padding:30px;
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:20px;
+box-shadow:var(--shadow);
+}
+
+.field{margin-bottom:16px}
+
+.field label{
+display:block;
+font-size:11px;
+font-weight:800;
+letter-spacing:.5px;
+color:var(--muted);
+text-transform:uppercase;
+margin-bottom:7px;
+}
+
+.field input{
+width:100%;
+padding:13px 14px;
+border:1px solid var(--border);
+border-radius:10px;
+background:var(--bg);
+color:var(--text);
+font-size:14px;
+outline:none;
+}
+
+.field input:focus{border-color:var(--gold)}
+
+.forgot{
+display:block;
+margin-top:8px;
+text-align:right;
+color:var(--gold);
+text-decoration:none;
+font-size:12px;
+font-weight:700;
+}
+
+.submit{
+width:100%;
+margin-top:16px;
+padding:14px;
+border:0;
+border-radius:10px;
+background:var(--primary);
+color:white;
+font-weight:800;
+font-size:14px;
+cursor:pointer;
+transition:.2s;
+}
+
+.submit:hover{background:var(--primary2)}
+.submit:disabled{opacity:.6;cursor:not-allowed}
+
+.msg{
+margin-top:14px;
+padding:12px 14px;
+border-radius:10px;
+font-size:12px;
+display:none;
+}
+
+.msg.error{
+display:block;
+background:rgba(200,92,92,.12);
+color:var(--danger);
+border:1px solid var(--danger);
+}
+
+.msg.success{
+display:block;
+background:rgba(49,149,107,.12);
+color:var(--success);
+border:1px solid var(--success);
+}
+
+.switch{
+text-align:center;
+margin-top:20px;
+font-size:12px;
+color:var(--muted);
+}
+
+.switch a{
+color:var(--gold);
+font-weight:700;
+text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+<a href="index.html" class="logo">SAT<span>stash</span></a>
+<button class="theme" onclick="toggleTheme()">◐</button>
+</nav>
+
+<main class="wrap">
+
+<div class="badge">WELCOME BACK</div>
+<h1>Log in.</h1>
+<p class="subtitle">Continue your SAT preparation.</p>
+
+<div class="panel">
+
+<form id="loginForm">
+
+<div class="field">
+<label>Email</label>
+<input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
+</div>
+
+<div class="field">
+<label>Password</label>
+<input type="password" id="password" placeholder="Your password" required autocomplete="current-password">
+</div>
+
+<a href="#" class="forgot" id="forgotPassword">Forgot password?</a>
+
+<button type="submit" class="submit" id="submitBtn">Log In</button>
+
+<div class="msg" id="msg"></div>
+
+</form>
+
+</div>
+
+<div class="switch">
+Don't have an account? <a href="register.html">Sign up</a>
+</div>
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+function toggleTheme(){
+document.body.classList.toggle("night");
+localStorage.setItem("satTheme", document.body.classList.contains("night") ? "night" : "day");
+}
+if(localStorage.getItem("satTheme")==="night"){
+document.body.classList.add("night");
+}
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCYOfHLlVqgxMEiXntV5sSANw6tHqRYAk8",
+  authDomain: "satstash-2671c.firebaseapp.com",
+  projectId: "satstash-2671c",
+  storageBucket: "satstash-2671c.firebasestorage.app",
+  messagingSenderId: "602562551480",
+  appId: "1:602562551480:web:d41a401a3299dc53c6de4d",
+  measurementId: "G-LBWXXKYRCJ"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+const form = document.getElementById("loginForm");
+const msg = document.getElementById("msg");
+const submitBtn = document.getElementById("submitBtn");
+const forgotPassword = document.getElementById("forgotPassword");
+
+function showMessage(text, type){
+    msg.textContent = text;
+    msg.className = "msg " + type;
+}
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Logging in...";
+
+    try{
+        await auth.signInWithEmailAndPassword(email, password);
+        showMessage("Login successful! Redirecting...", "success");
+        setTimeout(() => { location.href = "index.html"; }, 800);
+    }catch(error){
+        console.error(error);
+        let text = "Something went wrong. Please try again.";
+        if(error.code === "auth/invalid-credential" || error.code === "auth/wrong-password" || error.code === "auth/user-not-found"){
+            text = "Incorrect email or password.";
+        }else if(error.code === "auth/invalid-email"){
+            text = "Please enter a valid email address.";
+        }else if(error.code === "auth/too-many-requests"){
+            text = "Too many attempts. Please wait and try again.";
+        }
+        showMessage(text, "error");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Log In";
+    }
+});
+
+forgotPassword.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    if(!email){
+        showMessage("Enter your email first, then click Forgot password.", "error");
+        return;
+    }
+    try{
+        await auth.sendPasswordResetEmail(email);
+        showMessage("Password reset email sent. Check your inbox.", "success");
+    }catch(error){
+        console.error(error);
+        showMessage("We couldn't send the reset email. Check the address.", "error");
+    }
+});
+</script>
+
+</body>
+</html>

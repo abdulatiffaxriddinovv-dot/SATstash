@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SATstash — Vocabulary</title>
+
+<style>
+:root{
+    --bg:#f4f0e7;
+    --card:#fffdf8;
+    --card2:#f7f3eb;
+    --soft:#ece5d7;
+    --text:#172a27;
+    --muted:#68746f;
+    --gold:#b99355;
+    --gold2:#d9bc82;
+    --green:#183a37;
+    --border:#ded5c4;
+    --success:#31956b;
+    --danger:#c85c5c;
+    --shadow:0 20px 60px rgba(24,58,55,.10);
+}
+
+body.night{
+    --bg:#070c11;
+    --card:#0d161e;
+    --card2:#101b24;
+    --soft:#15212a;
+    --text:#f4f0e7;
+    --muted:#929e9b;
+    --gold:#dfc17d;
+    --gold2:#f0d99d;
+    --green:#dfc17d;
+    --border:#26343e;
+    --success:#4fc594;
+    --danger:#e27676;
+    --shadow:0 25px 70px rgba(0,0,0,.45);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%,rgba(185,147,85,.10),transparent 28%),
+        radial-gradient(circle at 90% 85%,rgba(24,58,55,.08),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    transition:.35s ease;
+}
+
+body.night{
+    background:
+        radial-gradient(circle at 10% 10%,rgba(223,193,125,.08),transparent 28%),
+        radial-gradient(circle at 90% 85%,rgba(65,130,120,.08),transparent 30%),
+        var(--bg);
+}
+
+/* NAVBAR */
+
+.navbar{
+    height:74px;
+    padding:0 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:rgba(255,253,248,.82);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+body.night .navbar{
+    background:rgba(13,22,30,.82);
+}
+
+.logo{
+    font-size:21px;
+    font-weight:900;
+    letter-spacing:-.7px;
+}
+
+.logo span{
+    color:var(--gold);
+}
+
+.nav{
+    display:flex;
+    align-items:center;
+    gap:22px;
+}
+
+.nav a{
+    text-decoration:none;
+    color:var(--muted);
+    font-size:13px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.nav a:hover{
+    color:var(--gold);
+}
+
+.theme{
+    width:40px;
+    height:40px;
+    border:1px solid var(--border);
+    border-radius:50%;
+    background:var(--card);
+    color:var(--text);
+    cursor:pointer;
+    transition:.25s;
+}
+
+.theme:hover{
+    border-color:var(--gold);
+    transform:rotate(15deg);
+}
+
+/* MAIN */
+
+.container{
+    max-width:1050px;
+    margin:auto;
+    padding:65px 22px 80px;
+}
+
+.hero{
+    text-align:center;
+}
+
+.badge{
+    display:inline-block;
+    padding:7px 14px;
+    border:1px solid var(--gold);
+    border-radius:30px;
+    color:var(--gold);
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:1.7px;
+}
+
+h1{
+    margin-top:18px;
+    font-size:50px;
+    letter-spacing:-3px;
+}
+
+.subtitle{
+    max-width:560px;
+    margin:12px auto 0;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.7;
+}
+
+/* HOME CHOICES */
+
+.choice-area{
+    position:relative;
+    max-width:850px;
+    min-height:370px;
+    margin:55px auto 0;
+}
+
+.choice-line{
+    position:absolute;
+    left:50%;
+    top:15px;
+    width:1px;
+    height:325px;
+    background:linear-gradient(
+        to bottom,
+        transparent,
+        var(--gold),
+        transparent
+    );
+    transform:rotate(10deg);
+    opacity:.45;
+}
+
+.choice{
+    position:absolute;
+    width:400px;
+    min-height:255px;
+    padding:35px;
+    text-align:left;
+    background:var(--card);
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    cursor:pointer;
+    color:var(--text);
+    transition:.35s ease;
+    overflow:hidden;
+}
+
+.choice::before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    right:-80px;
+    top:-80px;
+    border:1px solid var(--gold);
+    border-radius:50%;
+    opacity:.16;
+    transition:.45s;
+}
+
+.choice::after{
+    content:"";
+    position:absolute;
+    width:5px;
+    height:100%;
+    left:0;
+    top:0;
+    background:linear-gradient(
+        to bottom,
+        transparent,
+        var(--gold),
+        transparent
+    );
+    transform:scaleY(.2);
+    transition:.35s;
+}
+
+.choice:hover{
+    transform:translateY(-9px);
+    border-color:var(--gold);
+    box-shadow:
+        0 30px 75px rgba(24,58,55,.16);
+}
+
+body.night .choice:hover{
+    box-shadow:
+        0 30px 75px rgba(0,0,0,.5);
+}
+
+.choice:hover::before{
+    transform:scale(1.35);
+    opacity:.30;
+}
+
+.choice:hover::after{
+    transform:scaleY(1);
+}
+
+.learn-choice{
+    left:0;
+    top:0;
+    border-radius:30px 10px 30px 10px;
+}
+
+.test-choice{
+    right:0;
+    top:90px;
+    border-radius:10px 30px 10px 30px;
+}
+
+.choice-number{
+    color:var(--gold);
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.choice h2{
+    margin-top:27px;
+    font-size:30px;
+    letter-spacing:-1px;
+}
+
+.choice p{
+    margin-top:10px;
+    max-width:285px;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.75;
+}
+
+.open{
+    position:absolute;
+    right:28px;
+    bottom:25px;
+    color:var(--gold);
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:1.5px;
+}
+
+/* PANELS */
+
+.panel{
+    margin-top:35px;
+    padding:30px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:24px;
+    box-shadow:var(--shadow);
+}
+
+.hidden{
+    display:none !important;
+}
+
+.back{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    border:1px solid var(--border);
+    background:transparent;
+    color:var(--muted);
+    padding:9px 13px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:800;
+    transition:.2s;
+}
+
+.back:hover{
+    color:var(--gold);
+    border-color:var(--gold);
+    transform:translateX(-2px);
+}
+
+/* PROGRESS */
+
+.progress{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:var(--muted);
+    font-size:12px;
+    font-weight:800;
+}
+
+.progress-bar{
+    width:100%;
+    height:6px;
+    margin-top:12px;
+    background:var(--soft);
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    width:0;
+    background:linear-gradient(
+        90deg,
+        var(--gold),
+        var(--gold2)
+    );
+    border-radius:20px;
+    transition:.35s ease;
+}
+
+/* WORD CARD */
+
+.word-card{
+    margin-top:30px;
+    padding:48px 28px;
+    text-align:center;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(185,147,85,.10),transparent 40%),
+        var(--card2);
+    border:1px solid var(--border);
+    border-radius:20px;
+}
+
+.word{
+    font-size:45px;
+    font-weight:900;
+    letter-spacing:-2px;
+}
+
+.meaning{
+    margin-top:13px;
+    color:var(--gold);
+    font-size:18px;
+    font-weight:800;
+}
+
+.example{
+    max-width:700px;
+    margin:17px auto 0;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.75;
+}
+
+/* BUTTONS */
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-top:24px;
+}
+
+.primary,
+.secondary{
+    padding:12px 21px;
+    border-radius:11px;
+    cursor:pointer;
+    font-weight:800;
+    transition:.2s;
+}
+
+.primary{
+    border:0;
+    background:linear-gradient(
+        135deg,
+        var(--gold),
+        var(--gold2)
+    );
+    color:#14221f;
+    box-shadow:0 10px 25px rgba(185,147,85,.18);
+}
+
+.primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 15px 32px rgba(185,147,85,.28);
+}
+
+.secondary{
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+}
+
+.secondary:hover{
+    border-color:var(--gold);
+    color:var(--gold);
+}
+
+/* TEST SETUP */
+
+.test-options{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:24px;
+}
+
+.size-button{
+    min-width:60px;
+    padding:11px 17px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--card2);
+    color:var(--text);
+    cursor:pointer;
+    font-weight:700;
+    transition:.2s;
+}
+
+.size-button:hover{
+    border-color:var(--gold);
+    transform:translateY(-2px);
+}
+
+.size-button.active{
+    border-color:var(--gold);
+    color:var(--gold);
+    background:rgba(185,147,85,.08);
+}
+
+.custom-input{
+    margin-top:16px;
+}
+
+.custom-input input{
+    width:240px;
+    padding:13px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--soft);
+    color:var(--text);
+    outline:none;
+}
+
+.custom-input input:focus{
+    border-color:var(--gold);
+}
+
+/* TEST HEADER */
+
+.test-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.test-meta{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.test-score{
+    padding:9px 13px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    color:var(--gold);
+    background:var(--card2);
+    font-size:12px;
+    font-weight:900;
+}
+
+.timer{
+    padding:9px 13px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    color:var(--text);
+    background:var(--card2);
+    font-size:12px;
+    font-weight:900;
+}
+
+/* QUESTIONS */
+
+.question{
+    margin-top:28px;
+    padding:30px 32px;
+    position:relative;
+    overflow:hidden;
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:20px;
+    color:var(--text);
+    font-size:20px;
+    line-height:1.65;
+    box-shadow:0 12px 35px var(--shadow);
+}
+
+.question::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:4px;
+    height:100%;
+    background:linear-gradient(
+        to bottom,
+        transparent,
+        var(--gold),
+        transparent
+    );
+}
+
+/* ANSWERS */
+
+.option{
+    width:100%;
+    margin-top:11px;
+    padding:16px 20px;
+    display:block;
+    text-align:left;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:var(--card);
+    color:var(--text);
+    cursor:pointer;
+    font-size:14px;
+    line-height:1.5;
+    transition:.2s ease;
+}
+
+.option:hover{
+    transform:translateX(4px);
+    border-color:var(--gold);
+    box-shadow:0 8px 25px rgba(185,147,85,.10);
+}
+
+.option:disabled{
+    cursor:default;
+}
+
+.option.correct{
+    border-color:var(--success);
+    background:rgba(49,149,107,.12);
+    color:var(--success);
+}
+
+.option.incorrect{
+    border-color:var(--danger);
+    background:rgba(200,92,92,.12);
+    color:var(--danger);
+}
+
+/* NEXT */
+
+.next{
+    margin-top:22px;
+    padding:13px 24px;
+    border:0;
+    border-radius:11px;
+    background:linear-gradient(
+        135deg,
+        var(--gold),
+        var(--gold2)
+    );
+    color:#14221f;
+    font-weight:900;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.next:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 28px rgba(185,147,85,.22);
+}
+
+/* RESULT */
+
+.result{
+    text-align:center;
+    padding:42px 15px;
+}
+
+.result-score{
+    margin-top:15px;
+    font-size:56px;
+    font-weight:900;
+    letter-spacing:-2px;
+    color:var(--gold);
+}
+
+#resultMessage{
+    margin-top:10px;
+    color:var(--muted);
+}
+
+/* MOBILE */
+
+@media(max-width:750px){
+
+    .nav a{
+        display:none;
+    }
+
+    h1{
+        font-size:38px;
+    }
+
+    .choice-area{
+        min-height:auto;
+        display:flex;
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .choice-line{
+        display:none;
+    }
+
+    .choice{
+        position:relative;
+        width:100%;
+        min-height:220px;
+    }
+
+    .learn-choice,
+    .test-choice{
+        left:auto;
+        right:auto;
+        top:auto;
+    }
+
+    .panel{
+        padding:20px;
+    }
+
+    .question{
+        padding:22px 20px;
+        font-size:17px;
+    }
+
+    .test-header{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .word{
+        font-size:36px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        SAT<span>stash</span>
+    </div>
+
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="practice.html">Math</a>
+        <a href="reading.html">Reading</a>
+        <a href="vocabulary.html">Vocabulary</a>
+
+        <button class="theme" onclick="toggleTheme()">◐</button>
+    </div>
+
+</nav>
+
+<main class="container">
+
+<!-- HOME -->
+
+<section id="vocabularyHome">
+
+    <div class="hero">
+
+        <div class="badge">VOCABULARY</div>
+
+        <h1>Build your word power.</h1>
+
+        <p class="subtitle">
+            Master high-value SAT vocabulary and challenge
+            yourself with personalized tests.
+        </p>
+
+    </div>
+
+    <div class="choice-area">
+
+        <div class="choice-line"></div>
+
+        <button class="choice learn-choice"
+                onclick="openLearn()">
+
+            <div class="choice-number">01 / LEARN</div>
+
+            <h2>Learn</h2>
+
+            <p>
+                Study the vocabulary one word at a time,
+                with definitions and examples.
+            </p>
+
+            <div class="open">OPEN →</div>
+
+        </button>
+
+        <button class="choice test-choice"
+                onclick="openTest()">
+
+            <div class="choice-number">02 / TEST</div>
+
+            <h2>Vocabulary Test</h2>
+
+            <p>
+                Choose exactly how many words you want
+                to test from the vocabulary bank.
+            </p>
+
+            <div class="open">OPEN →</div>
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- LEARN -->
+
+<section id="learnPanel" class="panel hidden">
+
+    <button class="back" onclick="goHome()">
+        ← Back to Vocabulary
+    </button>
+
+    <div class="progress">
+        <span id="learnProgress">Word 1 of 20</span>
+        <span id="learnPercent">1%</span>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="learnBar"></div>
+    </div>
+
+    <div class="word-card">
+
+        <div class="word" id="learnWord"></div>
+
+        <div class="meaning" id="learnMeaning"></div>
+
+        <div class="example" id="learnExample"></div>
+
+    </div>
+
+    <div class="buttons">
+
+        <button class="secondary"
+                onclick="previousWord()">
+            Previous
+        </button>
+
+        <button class="primary"
+                onclick="nextWord()">
+            I Learned It →
+        </button>
+
+    </div>
+
+</section>
+
+<!-- LEARN COMPLETE -->
+
+<section id="learnComplete" class="panel hidden">
+
+    <button class="back" onclick="goHome()">
+        ← Back to Vocabulary
+    </button>
+
+    <div class="result">
+
+        <div class="badge">LEARNING COMPLETE</div>
+
+        <h2 style="margin-top:18px;">
+            You've completed the set.
+        </h2>
+
+        <p style="margin-top:10px;color:var(--muted);">
+            Ready to see how well you remember these words?
+        </p>
+
+        <button class="primary"
+                style="margin-top:22px;"
+                onclick="startLearnedTest()">
+            Test These Words →
+        </button>
+
+    </div>
+
+</section>
+
+<!-- TEST SETUP -->
+
+<section id="testSetup" class="panel hidden">
+
+    <button class="back" onclick="goHome()">
+        ← Back to Vocabulary
+    </button>
+
+    <h2 style="margin-top:25px;">
+        Customize your test
+    </h2>
+
+    <p style="margin-top:8px;color:var(--muted);font-size:13px;">
+        Select how many vocabulary questions you want.
+    </p>
+
+    <div class="test-options">
+
+        <button class="size-button"
+                onclick="selectSize(10,this)">
+            10
+        </button>
+
+        <button class="size-button"
+                onclick="selectSize(20,this)">
+            20
+        </button>
+
+        <button class="size-button"
+                onclick="selectSize(30,this)">
+            30
+        </button>
+
+        <button class="size-button"
+                onclick="selectSize(50,this)">
+            50
+        </button>
+
+        <button class="size-button"
+                onclick="selectSize(100,this)">
+            100
+        </button>
+
+        <button class="size-button"
+                onclick="selectSize(200,this)">
+            200
+        </button>
+
+        <button class="size-button"
+                onclick="selectSize(400,this)">
+            400
+        </button>
+
+        <button class="size-button"
+                onclick="showCustom()">
+            Custom
+        </button>
+
+    </div>
+
+    <div id="customInput" class="custom-input hidden">
+
+        <input
+            id="customNumber"
+            type="number"
+            min="1"
+            max="400"
+            placeholder="Enter number 1–400"
+        >
+
+    </div>
+
+    <button class="primary"
+            style="margin-top:20px;"
+            onclick="startCustomTest()">
+        Start Test →
+    </button>
+
+</section>
+
+<!-- TEST -->
+
+<section id="testPanel" class="panel hidden">
+
+    <div class="test-header">
+
+        <button class="back" onclick="goHome()">
+            ← Exit Test
+        </button>
+
+        <div class="test-meta">
+
+            <div class="test-score" id="testScore">
+                Score: 0
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="progress" style="margin-top:22px;">
+
+        <span id="testProgress">
+            Question 1 of 10
+        </span>
+
+        <span id="testPercent">
+            0%
+        </span>
+
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="testBar"></div>
+    </div>
+
+    <div class="question" id="testQuestion"></div>
+
+    <div id="testAnswers"></div>
+
+    <button class="next"
+            onclick="nextTestQuestion()">
+        Next Question →
+    </button>
+
+</section>
+
+<!-- RESULT -->
+
+<section id="testResult" class="panel hidden">
+
+    <div class="result">
+
+        <div class="badge">TEST COMPLETE</div>
+
+        <div class="result-score" id="finalScore">
+            0/0
+        </div>
+
+        <p id="resultMessage"></p>
+
+        <button class="primary"
+                style="margin-top:22px;"
+                onclick="openTest()">
+            New Test →
+        </button>
+
+        <br>
+
+        <button class="secondary"
+                style="margin-top:10px;"
+                onclick="goHome()">
+            Vocabulary Home
+        </button>
+
+    </div>
+
+</section>
+
+</main>
+
+<script>
+
+/* =========================================================
+   VOCABULARY DATABASE
+   ========================================================= */
+
+const vocabulary = [
+
+{word:"erratic",meaning:"unpredictable, inconsistent, irregular"},
+{word:"secluded",meaning:"hard to reach, hidden away"},
+{word:"fluctuate",meaning:"to rise and fall irregularly"},
+{word:"exalt",meaning:"to praise, to worship"},
+{word:"admonish",meaning:"to warn or scold someone"},
+{word:"abrupt",meaning:"sudden, unexpected, without warning"},
+{word:"content",meaning:"satisfied"},
+{word:"eccentric",meaning:"uncommon, strange"},
+{word:"mired",meaning:"stuck in mud"},
+{word:"colloquial",meaning:"used in casual conversation"},
+{word:"reconcile",meaning:"settle one's differences, make compatible, bring back to peace"},
+{word:"alienate",meaning:"to cause someone to feel isolated or lonely"},
+{word:"distinguish",meaning:"to tell the difference between"},
+{word:"adequate",meaning:"sufficient, enough, acceptable"},
+{word:"contend",meaning:"to deal with someone or something; to claim or state a belief confidently"},
+{word:"skeptical",meaning:"having doubts"},
+{word:"enfranchise",meaning:"to give the right to vote"},
+{word:"sophisticated",meaning:"having a lot of worldly experience and knowledge; complicated"},
+{word:"radical",meaning:"thorough, complete, extensive; fundamental; revolutionary or extreme"},
+{word:"formulate",meaning:"to create or think up"},
+{word:"attest",meaning:"to confirm or verify"},
+{word:"vexing",meaning:"annoying, irritating"},
+{word:"unassuming",meaning:"humble, low-key"},
+{word:"coerce",meaning:"to pressure or force someone to do something"},
+{word:"adept",meaning:"very skilled at something"},
+{word:"eloquent",meaning:"fluent or persuasive in speaking or writing"},
+{word:"austere",meaning:"plain and without decoration, comforts, or anything extra"},
+{word:"dread",meaning:"to fear, be afraid of"},
+{word:"inevitable",meaning:"unavoidable"},
+{word:"stress",meaning:"to emphasize"},
+{word:"spawn",meaning:"to produce, generate, or create"},
+{word:"renounce",meaning:"to give up, deny, or surrender something"},
+{word:"unprecedented",meaning:"never done or known before"},
+
+{word:"broach",meaning:"to bring up a difficult subject for discussion"},
+{word:"proxy",meaning:"a person authorized to act on behalf of another; substitute"},
+{word:"detrimental",meaning:"harmful, damaging"},
+{word:"secular",meaning:"having no religious or spiritual basis"},
+{word:"innovative",meaning:"new and different"},
+{word:"tangible",meaning:"real and able to be shown or touched"},
+{word:"disseminate",meaning:"to spread widely, particularly information"},
+{word:"delegate",meaning:"to assign a task to another person"},
+{word:"apparent",meaning:"clearly visible or understood; obvious"},
+{word:"postulate",meaning:"to suggest or propose something"},
+{word:"speculate",meaning:"to guess; to form a theory without firm evidence"},
+{word:"bazaar",meaning:"a market selling a large variety of goods"},
+{word:"sporadic",meaning:"scattered, irregular, unpredictable"},
+{word:"suffrage",meaning:"the right to vote"},
+{word:"incredulous",meaning:"unwilling or unable to believe something"},
+{word:"idealistic",meaning:"unrealistically aiming for perfection"},
+{word:"conflate",meaning:"to mix or combine into one, typically ideas"},
+{word:"paucity",meaning:"poverty, scarcity"},
+{word:"ephemeral",meaning:"temporary, short-lived"},
+{word:"prompt",meaning:"to cause someone to take a course of action"},
+{word:"reverence",meaning:"deep respect for someone or something"},
+{word:"disparity",meaning:"a great difference"},
+{word:"dispassionate",meaning:"not influenced by strong emotion; fair-minded"},
+{word:"phenomenon",meaning:"a noteworthy occurrence or situation"},
+{word:"boast",meaning:"to brag, to show off"},
+{word:"irksome",meaning:"irritating, annoying"},
+{word:"allude",meaning:"to suggest or call attention to indirectly; to make a reference"},
+{word:"omnipotence",meaning:"having unlimited or great power"},
+{word:"provoke",meaning:"to cause a reaction or emotion, usually anger; to trigger"},
+{word:"indulge",meaning:"to allow oneself to enjoy the pleasure of"},
+{word:"entrenched",meaning:"firmly established and unlikely to change"},
+{word:"inherent",meaning:"built-in; existing as a permanent or essential characteristic"},
+{word:"vernacular",meaning:"everyday informal language; local dialect"},
+
+{word:"inquisition",meaning:"interrogation, questioning"},
+{word:"anecdote",meaning:"a short personal story"},
+{word:"malign",meaning:"evil in nature, harmful"},
+{word:"anomaly",meaning:"oddity, something that is not normal"},
+{word:"inhibit",meaning:"to hold someone or something back; to suppress or prevent"},
+{word:"mutable",meaning:"changeable"},
+{word:"petty",meaning:"of little importance; caring too much about trivial matters"},
+{word:"avid",meaning:"passionate about something"},
+{word:"invoke",meaning:"to call on or refer to something"},
+{word:"imprudent",meaning:"foolish, reckless"},
+{word:"tenacity",meaning:"persistence, determination"},
+{word:"venerable",meaning:"respected"},
+{word:"authoritarian",meaning:"enforcing strict obedience to authority"},
+{word:"quarrel",meaning:"an angry argument or disagreement"},
+{word:"yield",meaning:"to produce or generate a result; to surrender"},
+{word:"ambivalent",meaning:"having mixed feelings"},
+{word:"endeavor",meaning:"to try hard to do something"},
+{word:"insurrection",meaning:"a violent uprising or rebellion"},
+{word:"contemplate",meaning:"to think about for a long time"},
+{word:"compel",meaning:"to force someone to do something"},
+{word:"feasible",meaning:"possible to do easily or conveniently"},
+{word:"conjecture",meaning:"an opinion or conclusion that is unproven; a guess"},
+{word:"arbitrary",meaning:"based on random choice or personal impulse rather than reason"},
+{word:"reinforce",meaning:"to make stronger"},
+{word:"temper",meaning:"to serve as a neutralizing or counterbalancing force"},
+{word:"decree",meaning:"an official order or command"},
+{word:"brevity",meaning:"concise use of words in writing or speech"},
+{word:"equivocal",meaning:"open to more than one interpretation; unclear"},
+{word:"stronghold",meaning:"a place that is strongly defended; a fortress"},
+{word:"conceive",meaning:"to form or create a plan or idea"},
+{word:"vanity",meaning:"excessive pride in one's appearance or achievements"},
+{word:"sluggish",meaning:"slow-moving"},
+{word:"intuition",meaning:"instinct; the ability to understand something immediately"},
+
+{word:"inexorable",meaning:"impossible to stop or prevent"},
+{word:"engender",meaning:"to cause or give rise to a feeling, situation, or condition"},
+{word:"temperament",meaning:"a person's nature, character, or frame of mind"},
+{word:"upheaval",meaning:"a sudden change or disruption; chaos"},
+{word:"embrace",meaning:"to welcome with open arms; to accept or support willingly"},
+{word:"substantiate",meaning:"to show to be true"},
+{word:"superficial",meaning:"shallow, on the surface"},
+{word:"sovereignty",meaning:"supreme power or authority"},
+{word:"lavish",meaning:"luxurious"},
+{word:"crux",meaning:"the essence; the main point"},
+{word:"indifference",meaning:"lack of interest and concern"},
+{word:"tact",meaning:"skillfulness and sensitivity in dealing with others or difficult issues"},
+{word:"abundant",meaning:"plentiful"},
+{word:"viable",meaning:"capable of working successfully; realistic, doable"},
+{word:"scorn",meaning:"contempt; the feeling that someone or something is worthless"},
+{word:"transgress",meaning:"misbehave, disobey"},
+{word:"analogy",meaning:"a comparison between two things"},
+{word:"objection",meaning:"a reason for disagreeing"},
+{word:"construe",meaning:"to interpret in a particular way"},
+{word:"procure",meaning:"obtain, acquire"},
+{word:"evoke",meaning:"to bring to mind"},
+{word:"depiction",meaning:"portrayal, illustration"},
+{word:"burden",meaning:"a difficulty, problem, or responsibility"},
+{word:"recollection",meaning:"a memory; the act of remembering"},
+{word:"tumult",meaning:"confusion or disorder"},
+{word:"concede",meaning:"to admit that something is true after first denying it"},
+{word:"demeanor",meaning:"manner, attitude, appearance"},
+{word:"emigration",meaning:"the act of leaving one's own country"},
+{word:"irate",meaning:"angry, furious"},
+{word:"tentative",meaning:"unconfirmed, subject to change"},
+{word:"merely",meaning:"only; just"},
+{word:"deceive",meaning:"to trick or mislead someone"},
+{word:"trifling",meaning:"unimportant, insignificant"},
+
+{word:"labyrinthine",meaning:"complicated or confusing"},
+{word:"decrepit",meaning:"weak or disabled; in a run-down, decayed state"},
+{word:"corroborate",meaning:"to confirm, to verify"},
+{word:"obstinacy",meaning:"stubbornness; unwilling to change"},
+{word:"confinement",meaning:"imprisonment, captivity"},
+{word:"monotony",meaning:"boredom, dullness, lack of variety"},
+{word:"degrade",meaning:"to treat with disrespect"},
+{word:"dilemma",meaning:"a situation requiring a difficult choice between alternatives"},
+{word:"conventional",meaning:"traditional, accepted, mainstream, standard"},
+{word:"proliferate",meaning:"increase or grow rapidly"},
+{word:"aesthetic",meaning:"concerned with beauty or the appreciation of beauty"},
+{word:"prominent",meaning:"important; famous"},
+{word:"unwieldy",meaning:"difficult to carry or move"},
+{word:"unilaterally",meaning:"done by only one person or group without agreement of others"},
+{word:"stimulate",meaning:"to trigger, spark, activate; to excite"},
+{word:"abate",meaning:"to become less intense or widespread"},
+{word:"diligent",meaning:"hard-working"},
+{word:"relegate",meaning:"to downgrade; to lower in rank or status"},
+{word:"demur",meaning:"to raise doubts or protest"},
+{word:"novel",meaning:"new or unusual in an interesting way"},
+{word:"abstract",meaning:"existing in thought or as an idea rather than physical or concrete"},
+{word:"vestigial",meaning:"undeveloped, nonfunctional"},
+{word:"preoccupied with",meaning:"obsessed with something"},
+{word:"optimistic",meaning:"hopeful and confident about the future"},
+{word:"remembrance",meaning:"the act of remembering something; a memory"},
+{word:"retain",meaning:"to keep; to hold on to"},
+{word:"susceptible",meaning:"easily influenced or harmed; vulnerable"},
+{word:"strenuous",meaning:"difficult, exhausting"},
+{word:"enchantment",meaning:"magic, charm, fascination"},
+{word:"subservient",meaning:"prepared to obey others; submissive; less important"},
+{word:"empirical",meaning:"based on experience rather than theory or pure logic"},
+{word:"hostile",meaning:"unfriendly, threatening"},
+
+{word:"promulgate",meaning:"to make widely known; to publicize"},
+{word:"enact",meaning:"to make law; to put into practice"},
+{word:"abject",meaning:"miserable, hopeless, awful"},
+{word:"expend",meaning:"to use up, to consume"},
+{word:"yielding",meaning:"giving in to or complying with requests of others"},
+{word:"ignominious",meaning:"embarrassing, shameful"},
+{word:"naive",meaning:"showing a lack of experience, wisdom, or judgment"},
+{word:"acquisition",meaning:"something bought or obtained; an act of purchase"},
+{word:"affluent",meaning:"wealthy"},
+{word:"consolidate",meaning:"to strengthen; to combine or unite"},
+{word:"pious",meaning:"very religious or spiritual"},
+{word:"aggregate",meaning:"collection or sum total"},
+{word:"scatterbrained",meaning:"disorganized, forgetful"},
+{word:"yearn",meaning:"to have an intense feeling of longing"},
+{word:"consummate",meaning:"complete or perfect; having a high degree of skill"},
+{word:"endorse",meaning:"to support"},
+{word:"ascertain",meaning:"to find something out for certain"},
+{word:"onerous",meaning:"involving a lot of effort; difficult"},
+{word:"objective",meaning:"fair-minded; not influenced by personal feelings"},
+{word:"aspire",meaning:"to hope to achieve something or be successful"},
+{word:"obsolete",meaning:"no longer produced or used; out of date"},
+{word:"inflammatory",meaning:"arousing angry or violent feelings"},
+{word:"sentiment",meaning:"a view or attitude toward a situation; a general feeling or opinion"},
+{word:"candor",meaning:"honesty"},
+{word:"materialistic",meaning:"excessively concerned with material possessions or money"},
+{word:"prejudice",meaning:"a dislike or unfair opinion not based on reason or experience"},
+{word:"distinct",meaning:"clearly separate and different"},
+{word:"deference",meaning:"respect"},
+{word:"extensive",meaning:"large in amount or scale"},
+{word:"impose",meaning:"to force acceptance of something; to cause inconvenience"},
+{word:"articulate",meaning:"having the ability to speak fluently and persuasively"},
+{word:"pristine",meaning:"original and pure; not spoiled or worn from use"},
+{word:"veranda",meaning:"a porch or balcony"},
+
+{word:"atypical",meaning:"unusual, uncommon"},
+{word:"subjugate",meaning:"to bring under domination or control; to conquer"},
+{word:"ubiquitous",meaning:"everywhere, universal"},
+{word:"altercation",meaning:"a noisy argument or disagreement"},
+{word:"robust",meaning:"strong and healthy; durable"},
+{word:"subvert",meaning:"to damage or weaken the authority of an established system"},
+{word:"melodramatic",meaning:"exaggerated, sensationalized, or overemotional"},
+{word:"glut",meaning:"an excess supply of something"},
+{word:"antipathy",meaning:"hatred, dislike"},
+{word:"perilous",meaning:"dangerous"},
+{word:"conception",meaning:"origin or beginning; an idea or concept"},
+{word:"repose",meaning:"rest, relaxation"},
+{word:"impede",meaning:"to create difficulties resulting in delay"},
+{word:"contradiction",meaning:"statements or ideas opposed to one another; inconsistency"},
+{word:"judgmental",meaning:"having an excessively critical point of view; disapproving"},
+{word:"dismal",meaning:"depressing, gloomy"},
+{word:"ambiguous",meaning:"open to more than one interpretation; unclear"},
+{word:"wayward",meaning:"difficult to control or predict because of unusual behavior"},
+{word:"implication",meaning:"a conclusion drawn from something; a consequence or result"},
+{word:"deploy",meaning:"to bring into effective action"},
+{word:"credibility",meaning:"believability, authority"},
+{word:"complacent",meaning:"overly satisfied or pleased with oneself"},
+{word:"convoke",meaning:"to summon, to call together"},
+{word:"mocking",meaning:"making fun of someone or something in a cruel way"},
+{word:"prospect",meaning:"the possibility or likelihood of a future event"},
+{word:"amicable",meaning:"friendly"},
+{word:"predecessor",meaning:"someone or something that came before"},
+{word:"deter",meaning:"to discourage someone from doing something"},
+{word:"indignation",meaning:"anger or annoyance"},
+{word:"fetter",meaning:"to restrict or restrain; to put in chains"},
+{word:"rigid",meaning:"stiff, firm, unchangeable"},
+{word:"cultivate",meaning:"to grow, to develop"},
+{word:"juvenile",meaning:"young, childish, immature"},
+
+{word:"convulsion",meaning:"a sudden, violent, irregular movement of the body"},
+{word:"devise",meaning:"to plan or invent by careful thought"},
+{word:"immure",meaning:"to imprison someone against their will"},
+{word:"perturb",meaning:"to make someone anxious or unsettled; to disturb"},
+{word:"solicitude",meaning:"care or concern for someone or something"},
+{word:"pervasive",meaning:"spreading widely throughout an area or group"},
+{word:"tyranny",meaning:"cruel and abusive government or rule"},
+{word:"apprehensive",meaning:"anxious or fearful that something bad may happen"},
+{word:"provision",meaning:"a condition or requirement in a legal document; providing services or resources"},
+{word:"insolent",meaning:"showing a rude lack of respect"},
+{word:"consensus",meaning:"general agreement"},
+{word:"discord",meaning:"disagreement between people"},
+{word:"complement",meaning:"to add to something in a way that enhances or completes it"},
+{word:"mortify",meaning:"to cause someone to feel embarrassed, ashamed, or humiliated"},
+{word:"dissipate",meaning:"to disappear or evaporate"},
+{word:"doctrine",meaning:"a belief or set of beliefs"},
+{word:"incomprehensible",meaning:"not able to be understood"},
+{word:"recount",meaning:"to tell someone about something; to give a report of an event"},
+{word:"inefficacious",meaning:"unable to produce the intended result"},
+{word:"adversary",meaning:"one's opponent or enemy"},
+{word:"endow",meaning:"to provide, to supply"},
+{word:"confound",meaning:"to cause surprise or confusion"},
+{word:"assert",meaning:"to state a fact or belief confidently and forcefully"},
+{word:"undermine",meaning:"to gradually damage or weaken"},
+{word:"paradox",meaning:"a statement or situation that may be true but seems impossible or difficult to understand"},
+{word:"apt",meaning:"appropriate or suitable in the circumstances"},
+{word:"competent",meaning:"having the necessary ability, knowledge, or skill"},
+{word:"severity",meaning:"the quality of being very unpleasant, unkind, or difficult"},
+{word:"dismay",meaning:"a feeling of shock and unhappiness"},
+{word:"usurp",meaning:"to take power or control by force or without the right"},
+{word:"nostalgic",meaning:"feeling happy and slightly sad when thinking about the past"},
+{word:"ornate",meaning:"having many complex patterns or decorations"},
+
+{word:"hierarchy",meaning:"a system in which people or things are ranked according to importance"},
+{word:"irrational",meaning:"not logical or reasonable"},
+{word:"bluster",meaning:"talk intended to seem important or threatening but with little effect"},
+{word:"subordinate",meaning:"having a lower or less important position"},
+{word:"malicious",meaning:"intending to cause harm; evil"},
+{word:"amend",meaning:"to revise; to make changes"},
+{word:"conform",meaning:"to behave according to an expectation or rule"},
+{word:"tout",meaning:"to advertise or praise something, often to sell it"},
+{word:"permeate",meaning:"to spread throughout something"},
+{word:"incantation",meaning:"a series of words said as a magic spell or charm"},
+{word:"impervious",meaning:"not able to be influenced, hurt, or damaged"},
+{word:"actuate",meaning:"to cause a machine to operate; to cause someone to act"},
+{word:"versatility",meaning:"ability to adapt to many different functions or activities"},
+{word:"proclaim",meaning:"to announce officially or publicly"},
+{word:"obeisance",meaning:"deep respect"},
+{word:"modest",meaning:"humble, not showy; not large in size or amount"},
+{word:"adorn",meaning:"to decorate"},
+{word:"solitude",meaning:"the state or situation of being alone"},
+{word:"deplete",meaning:"to use up the supply or resources of"},
+{word:"solemn",meaning:"having or showing serious purpose and determination; formal"},
+{word:"proponent",meaning:"a person who supports an idea, plan, or cause"},
+{word:"keen",meaning:"sharp; highly developed, usually the senses"},
+{word:"engulf",meaning:"to surround and cover completely"},
+{word:"diverge",meaning:"to go in different directions from the same point; to become different"},
+{word:"squalid",meaning:"extremely dirty, poor, and unpleasant"},
+{word:"hypothetical",meaning:"imagined or suggested but not necessarily real or true"},
+{word:"pressing",meaning:"urgent or needing immediate attention"},
+{word:"solicitation",meaning:"a request for money, information, or help"},
+{word:"meddle",meaning:"to interfere in something that is not one's concern"},
+{word:"coarse",meaning:"rough, not smooth; rude or offensive"},
+{word:"reproach",meaning:"to criticize or express disapproval with someone"},
+
+{word:"immerse",meaning:"to put something completely under liquid; to involve someone completely in an activity"},
+{word:"clout",meaning:"power and influence, especially in politics or business"},
+{word:"exacerbate",meaning:"to make something already bad worse"},
+{word:"dubious",meaning:"doubtful"},
+{word:"plausible",meaning:"possibly true; able to be believed; reasonable"},
+{word:"notion",meaning:"a belief or idea"},
+{word:"impartial",meaning:"able to judge something fairly"},
+{word:"swath",meaning:"a long strip or area of something"},
+{word:"dabble",meaning:"to try an activity in a casual way"},
+{word:"earnest",meaning:"sincere and serious"},
+{word:"vitality",meaning:"life, energy, and strength"},
+{word:"mimic",meaning:"to imitate or copy someone's actions or words"},
+{word:"agitate",meaning:"to make someone troubled or nervous; to campaign for something publicly"},
+{word:"practical",meaning:"likely to succeed or be effective in real circumstances"},
+{word:"ominous",meaning:"suggesting something unpleasant will happen"},
+{word:"dominion",meaning:"control over a country or people; land belonging to a ruler"},
+{word:"pretense",meaning:"a false display; an attempt to deceive"},
+{word:"egocentric",meaning:"thinking only of oneself; self-centered"},
+{word:"exploit",meaning:"to make full use of a resource; to use a person unfairly or selfishly"},
+{word:"comprise",meaning:"to consist of or be made up of"},
+{word:"plight",meaning:"a dangerous, difficult, or unfortunate situation"},
+{word:"exemplify",meaning:"to be a typical example of something"},
+{word:"momentous",meaning:"very important, especially of a decision or event"},
+{word:"reverberate",meaning:"to continue to be heard; to echo repeatedly"},
+{word:"paternal",meaning:"behaving or feeling as a father does toward his child"},
+{word:"lament",meaning:"to express sadness and regret"},
+{word:"mediation",meaning:"a process in which someone helps two sides resolve a disagreement"},
+{word:"miser",meaning:"someone with a great desire to possess money who hates spending it"},
+{word:"supple",meaning:"bending or able to bend easily; flexible"},
+{word:"oblivious",meaning:"not aware of what is happening around you"},
+{word:"sullen",meaning:"silent and unpleasant; depressed; gloomy"},
+
+{word:"imperative",meaning:"extremely important or urgent; something that needs to be done immediately"},
+{word:"reminisce",meaning:"to talk about the past with pleasure"},
+{word:"tranquil",meaning:"calm, quiet, and peaceful"},
+{word:"cleave",meaning:"to cut or split into at least two parts"},
+{word:"reluctance",meaning:"an unwillingness to do something"},
+{word:"misgiving",meaning:"a feeling of doubt, uncertainty, or worry about a future event"},
+{word:"sparse",meaning:"small in number, often spread over a large area; scarce"},
+{word:"progenitor",meaning:"originator, creator, founder"},
+{word:"absurd",meaning:"ridiculous or completely unreasonable"},
+{word:"premise",meaning:"an idea or theory on which a statement or action is based; an assumption"},
+{word:"scrutinize",meaning:"to examine someone or something very carefully"},
+{word:"supplemental",meaning:"added to something else to improve or complete it"},
+{word:"poignant",meaning:"causing a feeling of sadness"},
+{word:"obscure",meaning:"not known to many people; difficult to understand"},
+{word:"ancestral",meaning:"belonging to or inherited from one's ancestors"},
+{word:"gregarious",meaning:"fond of company; sociable"},
+{word:"exert",meaning:"to use power or ability to make something happen"},
+{word:"vigorous",meaning:"strong, healthy, and full of energy"},
+{word:"entreat",meaning:"to ask someone sincerely or anxiously to do something"},
+{word:"desolation",meaning:"a state of complete emptiness or destruction"},
+{word:"notorious",meaning:"famous for something bad"},
+{word:"induce",meaning:"to persuade someone to do something; to cause something to happen"},
+{word:"pompous",meaning:"feeling that one is better or more important than others"},
+{word:"disparage",meaning:"to criticize someone or something disrespectfully"},
+{word:"intact",meaning:"complete and in the original state; not damaged"},
+{word:"verdict",meaning:"an opinion or judgment"},
+{word:"mundane",meaning:"ordinary and dull"},
+{word:"spur",meaning:"to encourage an activity or development; to cause something to develop faster"},
+{word:"sentinel",meaning:"a guard whose job is to stand and keep watch"},
+{word:"convey",meaning:"to make an idea or feeling known or understandable; to communicate"},
+{word:"render",meaning:"to cause someone or something to be in a particular state"},
+{word:"manifest",meaning:"to show something clearly through signs or actions"},
+{word:"continuum",meaning:"a continuous sequence; a range"},
+
+{word:"redress",meaning:"to correct a wrong"},
+{word:"underscore",meaning:"to emphasize the importance of something"},
+{word:"enfeeble",meaning:"to make someone or something very weak"},
+{word:"disdain",meaning:"dislike of someone or something considered unworthy of respect"},
+{word:"flatter",meaning:"to praise someone in order to please them"},
+{word:"posterity",meaning:"all future generations of people"},
+{word:"sustain",meaning:"to strengthen or support; to keep alive"},
+{word:"sheer",meaning:"not mixed with anything else; pure or complete; very large"},
+{word:"assess",meaning:"to judge the quality or importance of something"},
+{word:"artisan",meaning:"a person who does skilled work with their hands"},
+{word:"subtle",meaning:"not loud, bright, noticeable, or obvious"},
+{word:"repudiate",meaning:"to refuse to accept someone or something; to reject"},
+{word:"meander",meaning:"to follow a route that is not straight or direct"},
+{word:"effectual",meaning:"successful in producing the intended results"},
+{word:"meager",meaning:"very small in amount or number"},
+{word:"tedious",meaning:"boring, slow, and tiring"},
+{word:"calibrate",meaning:"to carefully measure or adjust"},
+{word:"potent",meaning:"powerful, persuasive, or effective"},
+{word:"conducive",meaning:"providing the right conditions for something to happen or exist"},
+{word:"reserved",meaning:"tending to keep feelings or thoughts private; quiet"},
+{word:"medley",meaning:"a mixture of different things"},
+{word:"advocate",meaning:"to support an idea; a person who publicly supports an idea"},
+{word:"undulate",meaning:"to move with a smooth wavelike motion"},
+{word:"magnitude",meaning:"the great size or importance; the extent or degree of something"},
+{word:"aggrandize",meaning:"to make someone more powerful or important"},
+{word:"pummel",meaning:"to hit someone or something repeatedly"},
+{word:"timid",meaning:"easily frightened; shy"},
+{word:"bias",meaning:"an unfair personal opinion that influences judgment"},
+{word:"refine",meaning:"to improve something by making small changes"},
+{word:"oscillate",meaning:"to swing back and forth"},
+{word:"esteem",meaning:"respect and admiration for someone"},
+{word:"displace",meaning:"to force something or someone out of its usual place"},
+{word:"pulpit",meaning:"a raised platform in a church from which a preacher speaks"},
+
+{word:"ingenious",meaning:"clever, original, and inventive"},
+{word:"constitute",meaning:"to be the parts that form something"},
+{word:"insatiable",meaning:"impossible to satisfy"},
+{word:"volition",meaning:"the power to make one's own decisions"},
+{word:"relish",meaning:"to like or enjoy something"},
+{word:"facilitate",meaning:"to make an action or process possible or easier"},
+{word:"threshold",meaning:"the level or point at which something starts"},
+{word:"reform",meaning:"to make changes in something in order to improve it"},
+{word:"sneer",meaning:"to make a facial expression showing disapproval or disrespect"},
+{word:"profound",meaning:"intense or extreme; requiring deep thought"}
+
+];
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+let learnIndex = 0;
+
+let learnedWords =
+    JSON.parse(
+        localStorage.getItem("satLearnedWords") || "[]"
+    );
+
+let selectedSize = 10;
+
+let testWords = [];
+
+let testIndex = 0;
+
+let testScore = 0;
+
+let testAnswered = false;
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function hideAll(){
+
+    [
+        "vocabularyHome",
+        "learnPanel",
+        "learnComplete",
+        "testSetup",
+        "testPanel",
+        "testResult"
+    ].forEach(id=>{
+        document.getElementById(id)
+            .classList.add("hidden");
+    });
+
+}
+
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+function goHome(){
+
+    hideAll();
+
+    document.getElementById("vocabularyHome")
+        .classList.remove("hidden");
+
+}
+
+
+/* =========================================================
+   LEARNING
+   ========================================================= */
+
+function openLearn(){
+
+    hideAll();
+
+    document.getElementById("learnPanel")
+        .classList.remove("hidden");
+
+    learnIndex = 0;
+
+    updateLearn();
+
+}
+
+
+function updateLearn(){
+
+    const word = vocabulary[learnIndex];
+
+    document.getElementById("learnWord")
+        .textContent = word.word;
+
+    document.getElementById("learnMeaning")
+        .textContent = word.meaning;
+
+    document.getElementById("learnExample")
+        .textContent =
+        "Study this word carefully before moving to the next one.";
+
+    const number = learnIndex + 1;
+
+    const percent =
+        Math.round(
+            (number / vocabulary.length) * 100
+        );
+
+    document.getElementById("learnProgress")
+        .textContent =
+        "Word " +
+        number +
+        " of " +
+        vocabulary.length;
+
+    document.getElementById("learnPercent")
+        .textContent =
+        percent + "%";
+
+    document.getElementById("learnBar")
+        .style.width =
+        percent + "%";
+
+}
+
+
+function nextWord(){
+
+    const current = vocabulary[learnIndex];
+
+    if(!learnedWords.includes(current.word)){
+
+        learnedWords.push(current.word);
+
+        localStorage.setItem(
+            "satLearnedWords",
+            JSON.stringify(learnedWords)
+        );
+
+    }
+
+    if(learnIndex < vocabulary.length - 1){
+
+        learnIndex++;
+
+        updateLearn();
+
+    }else{
+
+        hideAll();
+
+        document.getElementById("learnComplete")
+            .classList.remove("hidden");
+
+    }
+
+}
+
+
+function previousWord(){
+
+    if(learnIndex > 0){
+
+        learnIndex--;
+
+        updateLearn();
+
+    }
+
+}
+
+
+function startLearnedTest(){
+
+    const learned =
+        vocabulary.filter(word =>
+            learnedWords.includes(word.word)
+        );
+
+    if(learned.length === 0){
+
+        alert("You have not learned any words yet.");
+
+        return;
+
+    }
+
+    startTestWithWords(learned);
+
+}
+
+
+/* =========================================================
+   TEST SETUP
+   ========================================================= */
+
+function openTest(){
+
+    hideAll();
+
+    document.getElementById("testSetup")
+        .classList.remove("hidden");
+
+}
+
+
+function selectSize(size, button){
+
+    selectedSize = size;
+
+    document
+        .querySelectorAll(".size-button")
+        .forEach(item =>
+            item.classList.remove("active")
+        );
+
+    button.classList.add("active");
+
+    document.getElementById("customInput")
+        .classList.add("hidden");
+
+}
+
+
+function showCustom(){
+
+    document
+        .querySelectorAll(".size-button")
+        .forEach(item =>
+            item.classList.remove("active")
+        );
+
+    document.getElementById("customInput")
+        .classList.remove("hidden");
+
+}
+
+
+function startCustomTest(){
+
+    let amount = selectedSize;
+
+    const customBox =
+        document.getElementById("customInput");
+
+    if(!customBox.classList.contains("hidden")){
+
+        amount =
+            Number(
+                document.getElementById("customNumber").value
+            );
+
+    }
+
+    if(
+        !Number.isInteger(amount) ||
+        amount < 1
+    ){
+
+        alert("Please enter a valid number from 1 to " + vocabulary.length + ".");
+
+        return;
+
+    }
+
+    if(amount > vocabulary.length){
+
+        alert(
+            "The vocabulary bank contains " +
+            vocabulary.length +
+            " words."
+        );
+
+        return;
+
+    }
+
+    const shuffled =
+        [...vocabulary]
+        .sort(() => Math.random() - .5);
+
+    startTestWithWords(
+        shuffled.slice(0,amount)
+    );
+
+}
+
+
+/* =========================================================
+   TEST ENGINE
+   ========================================================= */
+
+function startTestWithWords(words){
+
+    testWords = [...words];
+
+    testIndex = 0;
+
+    testScore = 0;
+
+    testAnswered = false;
+
+    hideAll();
+
+    document.getElementById("testPanel")
+        .classList.remove("hidden");
+
+    showTestQuestion();
+
+}
+
+
+function showTestQuestion(){
+
+    testAnswered = false;
+
+    const current =
+        testWords[testIndex];
+
+    const percent =
+        Math.round(
+            (testIndex / testWords.length) * 100
+        );
+
+    document.getElementById("testProgress")
+        .textContent =
+        "Question " +
+        (testIndex + 1) +
+        " of " +
+        testWords.length;
+
+    document.getElementById("testPercent")
+        .textContent =
+        percent + "%";
+
+    document.getElementById("testBar")
+        .style.width =
+        percent + "%";
+
+    document.getElementById("testScore")
+        .textContent =
+        "Score: " + testScore;
+
+    document.getElementById("testQuestion")
+        .textContent =
+        'What is the closest meaning of "' +
+        current.word +
+        '"?';
+
+    const answers =
+        document.getElementById("testAnswers");
+
+    answers.innerHTML = "";
+
+    const wrongAnswers =
+        vocabulary
+        .filter(item =>
+            item.word !== current.word
+        )
+        .sort(() => Math.random() - .5)
+        .slice(0,3)
+        .map(item => item.meaning);
+
+    const options =
+        [
+            current.meaning,
+            ...wrongAnswers
+        ].sort(() => Math.random() - .5);
+
+    options.forEach(answer => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "option";
+
+        button.textContent = answer;
+
+        button.onclick = function(){
+
+            if(testAnswered) return;
+
+            testAnswered = true;
+
+            const all =
+                document.querySelectorAll(
+                    "#testAnswers .option"
+                );
+
+            all.forEach(item=>{
+                item.disabled = true;
+            });
+
+            if(answer === current.meaning){
+
+                button.classList.add("correct");
+
+                testScore++;
+
+            }else{
+
+                button.classList.add("incorrect");
+
+                all.forEach(item=>{
+
+                    if(
+                        item.textContent ===
+                        current.meaning
+                    ){
+
+                        item.classList.add("correct");
+
+                    }
+
+                });
+
+            }
+
+            document.getElementById("testScore")
+                .textContent =
+                "Score: " + testScore;
+
+        };
+
+        answers.appendChild(button);
+
+    });
+
+}
+
+
+function nextTestQuestion(){
+
+    if(!testAnswered){
+
+        alert("Please choose an answer first.");
+
+        return;
+
+    }
+
+    testIndex++;
+
+    if(testIndex >= testWords.length){
+
+        finishTest();
+
+        return;
+
+    }
+
+    showTestQuestion();
+
+}
+
+
+function finishTest(){
+
+    hideAll();
+
+    document.getElementById("testResult")
+        .classList.remove("hidden");
+
+    document.getElementById("finalScore")
+        .textContent =
+        testScore +
+        "/" +
+        testWords.length;
+
+    const percentage =
+        Math.round(
+            (testScore / testWords.length) * 100
+        );
+
+    document.getElementById("resultMessage")
+        .textContent =
+        "You scored " +
+        percentage +
+        "%. Keep practicing to improve.";
+
+}
+
+
+/* =========================================================
+   THEME
+   ========================================================= */
+
+function toggleTheme(){
+
+    document.body.classList.toggle("night");
+
+    localStorage.setItem(
+        "satTheme",
+        document.body.classList.contains("night")
+            ? "night"
+            : "day"
+    );
+
+}
+
+
+if(
+    localStorage.getItem("satTheme") === "night"
+){
+
+    document.body.classList.add("night");
+
+}
+
+</script>
+.footer{
+    text-align:center;
+    padding:26px 20px;
+    color:var(--muted);
+    font-size:12px;
+    border-top:1px solid var(--border);
+    margin-top:40px;
+}
+
+.footer span{
+    color:var(--gold);
+    font-weight:700;
+}
+</body>
+</html>

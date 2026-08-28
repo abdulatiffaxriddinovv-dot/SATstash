@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SATstash — Full Test</title>
+
+<style>
+:root{
+    --bg:#f3efe6;
+    --card:#fffdf8;
+    --soft:#ebe5d8;
+    --text:#172a27;
+    --muted:#68746f;
+    --gold:#b99355;
+    --green:#183a37;
+    --border:#ddd5c5;
+    --shadow:rgba(24,58,55,.12);
+    --danger:#c85c5c;
+    --success:#31956b;
+}
+
+body.night{
+    --bg:#070c11;
+    --card:#0e171f;
+    --soft:#141f28;
+    --text:#f2eee5;
+    --muted:#929e9b;
+    --gold:#d8b978;
+    --green:#d8b978;
+    --border:#25323b;
+    --shadow:rgba(0,0,0,.4);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    transition:.3s;
+}
+
+/* NAVBAR */
+
+.navbar{
+    height:74px;
+    padding:0 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+}
+
+.logo{
+    font-size:21px;
+    font-weight:800;
+}
+
+.logo span{
+    color:var(--gold);
+}
+
+.nav{
+    display:flex;
+    align-items:center;
+    gap:22px;
+}
+
+.nav a{
+    text-decoration:none;
+    color:var(--muted);
+    font-size:13px;
+    font-weight:600;
+}
+
+.theme{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    cursor:pointer;
+}
+
+/* MAIN */
+
+.container{
+    max-width:1050px;
+    margin:auto;
+    padding:55px 22px;
+}
+
+.hidden{
+    display:none !important;
+}
+
+/* HERO */
+
+.hero{
+    text-align:center;
+}
+
+.badge{
+    display:inline-block;
+    padding:7px 14px;
+    border:1px solid var(--gold);
+    border-radius:30px;
+    color:var(--gold);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.5px;
+}
+
+h1{
+    margin-top:18px;
+    font-size:46px;
+    letter-spacing:-2px;
+}
+
+.subtitle{
+    max-width:570px;
+    margin:12px auto;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.7;
+}
+
+/* BIG CUSTOMIZE WINDOW */
+
+.customize{
+    margin:48px auto 0;
+    max-width:900px;
+    padding:40px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:28px;
+    box-shadow:0 25px 70px var(--shadow);
+    position:relative;
+    overflow:hidden;
+}
+
+.customize::before{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border:1px solid var(--gold);
+    border-radius:50%;
+    right:-100px;
+    top:-100px;
+    opacity:.18;
+}
+
+.customize::after{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    border:1px solid var(--gold);
+    border-radius:50%;
+    left:-80px;
+    bottom:-80px;
+    opacity:.12;
+}
+
+.custom-header{
+    position:relative;
+    z-index:2;
+}
+
+.custom-header h2{
+    font-size:31px;
+    letter-spacing:-1px;
+}
+
+.custom-header p{
+    margin-top:8px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* SETTINGS */
+
+.settings{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+    margin-top:32px;
+}
+
+.setting{
+    padding:22px;
+    background:var(--soft);
+    border:1px solid var(--border);
+    border-radius:18px;
+}
+
+.setting.full{
+    grid-column:1/-1;
+}
+
+.setting-title{
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:1px;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin-bottom:14px;
+}
+
+/* BUTTON OPTIONS */
+
+.options{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+}
+
+.option-btn{
+    padding:11px 17px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    cursor:pointer;
+    font-size:13px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.option-btn:hover{
+    border-color:var(--gold);
+    transform:translateY(-2px);
+}
+
+.option-btn.active{
+    background:var(--gold);
+    color:#fff;
+    border-color:var(--gold);
+}
+
+/* NUMBER */
+
+.number-control{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.number-control input{
+    width:120px;
+    padding:12px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--card);
+    color:var(--text);
+    outline:none;
+    font-size:14px;
+}
+
+.number-control span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* START */
+
+.start-area{
+    position:relative;
+    z-index:2;
+    margin-top:28px;
+    display:flex;
+    justify-content:flex-end;
+}
+
+.start-btn{
+    padding:15px 30px;
+    border:0;
+    border-radius:12px;
+    background:var(--green);
+    color:white;
+    font-size:14px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.25s;
+}
+
+body.night .start-btn{
+    color:#0a1014;
+}
+
+.start-btn:hover{
+    transform:translateY(-3px);
+}
+
+/* TEST PANEL */
+
+.panel{
+    max-width:900px;
+    margin:20px auto 0;
+    padding:32px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:24px;
+    box-shadow:0 20px 60px var(--shadow);
+}
+
+.back{
+    border:0;
+    background:none;
+    color:var(--muted);
+    cursor:pointer;
+    font-size:12px;
+    margin-bottom:24px;
+}
+
+.test-top{
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.progress-bar{
+    width:100%;
+    height:5px;
+    background:var(--soft);
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:12px;
+}
+
+.progress-fill{
+    height:100%;
+    width:0;
+    background:var(--gold);
+    transition:.3s;
+}
+
+.timer{
+    margin-top:20px;
+    text-align:center;
+    font-size:25px;
+    font-weight:800;
+    color:var(--gold);
+}
+
+.timer.warning{
+    color:var(--danger);
+}
+
+.question-box{
+    margin-top:28px;
+    padding:30px;
+    background:var(--soft);
+    border:1px solid var(--border);
+    border-radius:18px;
+}
+
+.question-number{
+    color:var(--gold);
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.question{
+    margin-top:14px;
+    font-size:21px;
+    line-height:1.6;
+}
+
+.answers{
+    margin-top:20px;
+}
+
+.answer{
+    width:100%;
+    padding:15px;
+    margin-top:10px;
+    text-align:left;
+    border:1px solid var(--border);
+    border-radius:11px;
+    background:var(--card);
+    color:var(--text);
+    cursor:pointer;
+    font-size:14px;
+    transition:.2s;
+}
+
+.answer:hover{
+    border-color:var(--gold);
+}
+
+.answer.correct{
+    border-color:var(--success);
+    background:rgba(49,149,107,.12);
+    color:var(--success);
+}
+
+.answer.incorrect{
+    border-color:var(--danger);
+    background:rgba(200,92,92,.12);
+    color:var(--danger);
+}
+
+.next-btn{
+    margin-top:22px;
+    padding:13px 24px;
+    border:0;
+    border-radius:10px;
+    background:var(--green);
+    color:white;
+    font-weight:800;
+    cursor:pointer;
+}
+
+body.night .next-btn{
+    color:#0a1014;
+}
+
+/* RESULT */
+
+.result{
+    text-align:center;
+    padding:35px 10px;
+}
+
+.score{
+    margin-top:15px;
+    font-size:58px;
+    font-weight:800;
+}
+
+.result-text{
+    margin-top:10px;
+    color:var(--muted);
+}
+
+.result-btn{
+    margin-top:25px;
+    padding:13px 23px;
+    border:0;
+    border-radius:10px;
+    background:var(--green);
+    color:white;
+    font-weight:800;
+    cursor:pointer;
+}
+
+body.night .result-btn{
+    color:#0a1014;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .nav a{
+        display:none;
+    }
+
+    h1{
+        font-size:36px;
+    }
+
+    .customize{
+        padding:25px;
+    }
+
+    .settings{
+        grid-template-columns:1fr;
+    }
+
+    .setting.full{
+        grid-column:auto;
+    }
+
+    .start-area{
+        justify-content:stretch;
+    }
+
+    .start-btn{
+        width:100%;
+    }
+
+}
+</style>
+</head>
+
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        SAT<span>stash</span>
+    </div>
+
+    <div class="nav">
+
+        <a href="index.html">Home</a>
+        <a href="math.html">Math</a>
+        <a href="reading.html">Reading</a>
+        <a href="vocabulary.html">Vocabulary</a>
+
+        <button class="theme"
+                onclick="toggleTheme()">
+            ◐
+        </button>
+
+    </div>
+
+</nav>
+
+
+<main class="container">
+
+
+<!-- =================================
+     FULL TEST CUSTOMIZE
+     Bitta va yagona Customize oynasi
+     ================================= -->
+
+<section id="customizePage">
+
+    <div class="hero">
+
+        <div class="badge">
+            FULL TEST
+        </div>
+
+        <h1>
+            Build your test.
+        </h1>
+
+        <p class="subtitle">
+            Customize every part of your SAT practice test
+            before you begin.
+        </p>
+
+    </div>
+
+
+    <div class="customize">
+
+        <div class="custom-header">
+
+            <h2>
+                Customize Test
+            </h2>
+
+            <p>
+                Choose exactly how you want your test to work.
+            </p>
+
+        </div>
+
+
+        <div class="settings">
+
+
+            <!-- SUBJECT -->
+
+            <div class="setting">
+
+                <div class="setting-title">
+                    Subject
+                </div>
+
+                <div class="options">
+
+                    <button class="option-btn active"
+                            onclick="chooseSubject('Both',this)">
+                        Math + Reading
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="chooseSubject('Math',this)">
+                        Math
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="chooseSubject('Reading',this)">
+                        Reading
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- DIFFICULTY -->
+
+            <div class="setting">
+
+                <div class="setting-title">
+                    Difficulty
+                </div>
+
+                <div class="options">
+
+                    <button class="option-btn active"
+                            onclick="chooseDifficulty('Mixed',this)">
+                        Mixed
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="chooseDifficulty('Easy',this)">
+                        Easy
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="chooseDifficulty('Medium',this)">
+                        Medium
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="chooseDifficulty('Hard',this)">
+                        Hard
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- TIME -->
+
+            <div class="setting">
+
+                <div class="setting-title">
+                    Time
+                </div>
+
+                <div class="options">
+
+                    <button class="option-btn active"
+                            onclick="chooseTime(30,this)">
+                        30 min
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="chooseTime(45,this)">
+                        45 min
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="chooseTime(60,this)">
+                        60 min
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="chooseTime(90,this)">
+                        90 min
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="chooseTime(120,this)">
+                        120 min
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUESTIONS -->
+
+            <div class="setting">
+
+                <div class="setting-title">
+                    Questions
+                </div>
+
+                <div class="options">
+
+                    <button class="option-btn"
+                            onclick="chooseQuestions(10,this)">
+                        10
+                    </button>
+
+                    <button class="option-btn active"
+                            onclick="chooseQuestions(20,this)">
+                        20
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="chooseQuestions(30,this)">
+                        30
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="chooseQuestions(50,this)">
+                        50
+                    </button>
+
+                    <button class="option-btn"
+                            onclick="chooseQuestions(100,this)">
+                        100
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- CUSTOM QUESTIONS -->
+
+            <div class="setting full">
+
+                <div class="setting-title">
+                    Custom Question Count
+                </div>
+
+                <div class="number-control">
+
+                    <input
+                        id="questionInput"
+                        type="number"
+                        min="1"
+                        max="200"
+                        placeholder="e.g. 25"
+                    >
+
+                    <span>
+                        1–200 questions
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="start-area">
+
+            <button class="start-btn"
+                    onclick="startFullTest()">
+
+                Start Full Test →
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     TEST
+     ================================= -->
+
+<section id="testPage"
+         class="panel hidden">
+
+    <button class="back"
+            onclick="backToCustomize()">
+
+        ← Back to Customize
+
+    </button>
+
+
+    <div class="test-top">
+
+        <span id="questionProgress">
+            Question 1 of 20
+        </span>
+
+        <span id="scoreDisplay">
+            Score: 0
+        </span>
+
+    </div>
+
+
+    <div class="progress-bar">
+
+        <div class="progress-fill"
+             id="progressFill">
+        </div>
+
+    </div>
+
+
+    <div class="timer"
+         id="timer">
+
+        30:00
+
+    </div>
+
+
+    <div class="question-box">
+
+        <div class="question-number"
+             id="questionNumber">
+
+            QUESTION 01
+
+        </div>
+
+        <div class="question"
+             id="questionText">
+
+        </div>
+
+        <div class="answers"
+             id="answers">
+
+        </div>
+
+    </div>
+
+
+    <button class="next-btn"
+            onclick="nextQuestion()">
+
+        Next Question →
+
+    </button>
+
+</section>
+
+
+<!-- =================================
+     RESULT
+     ================================= -->
+
+<section id="resultPage"
+         class="panel hidden">
+
+    <div class="result">
+
+        <div class="badge">
+            TEST COMPLETE
+        </div>
+
+        <div class="score"
+             id="finalScore">
+
+            0/0
+
+        </div>
+
+        <p class="result-text"
+           id="resultText">
+
+        </p>
+
+        <button class="result-btn"
+                onclick="backToCustomize()">
+
+            Create New Test
+
+        </button>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<script>
+
+/* =================================
+   TEST SETTINGS
+   ================================= */
+
+let subject = "Both";
+
+let difficulty = "Mixed";
+
+let testTime = 30;
+
+let questionCount = 20;
+
+
+/* =================================
+   TEST STATE
+   ================================= */
+
+let questions = [];
+
+let currentQuestion = 0;
+
+let score = 0;
+
+let answered = false;
+
+let timerInterval;
+
+let remainingSeconds;
+
+
+/* =================================
+   SAMPLE QUESTIONS
+   ================================= */
+
+const mathQuestions = [
+
+    {
+        subject:"Math",
+        difficulty:"Easy",
+        question:"If 3x = 18, what is the value of x?",
+        answers:["3","6","9","12"],
+        correct:1
+    },
+
+    {
+        subject:"Math",
+        difficulty:"Medium",
+        question:"What is the slope of the line y = 4x + 7?",
+        answers:["4","7","-4","-7"],
+        correct:0
+    },
+
+    {
+        subject:"Math",
+        difficulty:"Hard",
+        question:"If x² - 9 = 0, which values could x have?",
+        answers:["3 only","-3 only","3 and -3","9 and -9"],
+        correct:2
+    },
+
+    {
+        subject:"Math",
+        difficulty:"Easy",
+        question:"What is 25% of 80?",
+        answers:["10","15","20","25"],
+        correct:2
+    },
+
+    {
+        subject:"Math",
+        difficulty:"Medium",
+        question:"If f(x)=2x+5, what is f(4)?",
+        answers:["9","11","13","15"],
+        correct:1
+    }
+
+];
+
+
+const readingQuestions = [
+
+    {
+        subject:"Reading",
+        difficulty:"Easy",
+        question:"Which choice best describes the main purpose of a passage?",
+        answers:[
+            "To explain a central idea",
+            "To list random facts",
+            "To confuse the reader",
+            "To avoid a conclusion"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Reading",
+        difficulty:"Medium",
+        question:"In a passage, what does context usually help determine?",
+        answers:[
+            "The meaning of a word",
+            "The font size",
+            "The page number",
+            "The author's age"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Reading",
+        difficulty:"Hard",
+        question:"Which evidence most strongly supports a claim?",
+        answers:[
+            "Relevant textual evidence",
+            "An unrelated opinion",
+            "A random example",
+            "A guess"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Reading",
+        difficulty:"Easy",
+        question:"What is an author's tone?",
+        answers:[
+            "The author's attitude",
+            "The length of the passage",
+            "The number of paragraphs",
+            "The title only"
+        ],
+        correct:0
+    },
+
+    {
+        subject:"Reading",
+        difficulty:"Medium",
+        question:"An inference is best described as:",
+        answers:[
+            "A conclusion based on evidence",
+            "A direct quotation",
+            "A spelling mistake",
+            "A title"
+        ],
+        correct:0
+    }
+
+];
+
+
+/* =================================
+   SETTINGS FUNCTIONS
+   ================================= */
+
+function chooseSubject(value,button){
+
+    subject = value;
+
+    activateButton(button);
+
+}
+
+
+function chooseDifficulty(value,button){
+
+    difficulty = value;
+
+    activateButton(button);
+
+}
+
+
+function chooseTime(value,button){
+
+    testTime = value;
+
+    activateButton(button);
+
+}
+
+
+function chooseQuestions(value,button){
+
+    questionCount = value;
+
+    document.getElementById("questionInput")
+        .value = "";
+
+    activateButton(button);
+
+}
+
+
+function activateButton(button){
+
+    const parent =
+        button.parentElement;
+
+    parent
+        .querySelectorAll(".option-btn")
+        .forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+    button.classList.add("active");
+
+}
+
+
+/* =================================
+   START FULL TEST
+   ================================= */
+
+function startFullTest(){
+
+    const custom =
+        Number(
+            document.getElementById("questionInput").value
+        );
+
+
+    if(custom){
+
+        if(custom < 1 || custom > 200){
+
+            alert(
+                "Please enter a number between 1 and 200."
+            );
+
+            return;
+
+        }
+
+        questionCount = custom;
+
+    }
+
+
+    buildQuestions();
+
+
+    currentQuestion = 0;
+
+    score = 0;
+
+    answered = false;
+
+
+    document
+        .getElementById("customizePage")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("resultPage")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("testPage")
+        .classList.remove("hidden");
+
+
+    startTimer();
+
+    showQuestion();
+
+}
+
+
+/* =================================
+   BUILD QUESTIONS
+   ================================= */
+
+function buildQuestions(){
+
+    let bank = [];
+
+
+    if(subject === "Math"){
+
+        bank = [...mathQuestions];
+
+    }
+    else if(subject === "Reading"){
+
+        bank = [...readingQuestions];
+
+    }
+    else{
+
+        bank = [
+            ...mathQuestions,
+            ...readingQuestions
+        ];
+
+    }
+
+
+    if(difficulty !== "Mixed"){
+
+        const filtered =
+            bank.filter(q =>
+                q.difficulty === difficulty
+            );
+
+
+        if(filtered.length > 0){
+
+            bank = filtered;
+
+        }
+
+    }
+
+
+    bank =
+        bank.sort(() =>
+            Math.random() - .5
+        );
+
+
+    questions = [];
+
+
+    for(let i=0;i<questionCount;i++){
+
+        questions.push(
+            bank[i % bank.length]
+        );
+
+    }
+
+}
+
+
+/* =================================
+   SHOW QUESTION
+   ================================= */
+
+function showQuestion(){
+
+    answered = false;
+
+
+    const q =
+        questions[currentQuestion];
+
+
+    document.getElementById("questionProgress")
+        .textContent =
+        "Question " +
+        (currentQuestion + 1) +
+        " of " +
+        questions.length;
+
+
+    document.getElementById("scoreDisplay")
+        .textContent =
+        "Score: " + score;
+
+
+    document.getElementById("questionNumber")
+        .textContent =
+        "QUESTION " +
+        String(currentQuestion + 1)
+        .padStart(2,"0");
+
+
+    document.getElementById("questionText")
+        .textContent =
+        q.question;
+
+
+    const answers =
+        document.getElementById("answers");
+
+
+    answers.innerHTML = "";
+
+
+    q.answers.forEach(
+        (answer,index)=>{
+
+            const button =
+                document.createElement("button");
+
+
+            button.className = "answer";
+
+            button.textContent = answer;
+
+
+            button.onclick =
+                () => chooseAnswer(button,index);
+
+
+            answers.appendChild(button);
+
+        }
+    );
+
+
+    const percentage =
+        ((currentQuestion) /
+        questions.length) * 100;
+
+
+    document.getElementById("progressFill")
+        .style.width =
+        percentage + "%";
+
+}
+
+
+/* =================================
+   ANSWER
+   ================================= */
+
+function chooseAnswer(button,index){
+
+    if(answered) return;
+
+    answered = true;
+
+
+    const q =
+        questions[currentQuestion];
+
+
+    const all =
+        document.querySelectorAll(".answer");
+
+
+    if(index === q.correct){
+
+        button.classList.add("correct");
+
+        score++;
+
+    }
+    else{
+
+        button.classList.add("incorrect");
+
+        all[q.correct]
+            .classList.add("correct");
+
+    }
+
+
+    document.getElementById("scoreDisplay")
+        .textContent =
+        "Score: " + score;
+
+}
+
+
+/* =================================
+   NEXT
+   ================================= */
+
+function nextQuestion(){
+
+    if(!answered){
+
+        alert(
+            "Please choose an answer first."
+        );
+
+        return;
+
+    }
+
+
+    currentQuestion++;
+
+
+    if(currentQuestion >= questions.length){
+
+        finishTest();
+
+        return;
+
+    }
+
+
+    showQuestion();
+
+}
+
+
+/* =================================
+   TIMER
+   ================================= */
+
+function startTimer(){
+
+    clearInterval(timerInterval);
+
+
+    remainingSeconds =
+        testTime * 60;
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(()=>{
+
+            remainingSeconds--;
+
+            updateTimer();
+
+
+            if(remainingSeconds <= 0){
+
+                clearInterval(timerInterval);
+
+                finishTest();
+
+            }
+
+        },1000);
+
+}
+
+
+function updateTimer(){
+
+    const minutes =
+        Math.floor(
+            remainingSeconds / 60
+        );
+
+    const seconds =
+        remainingSeconds % 60;
+
+
+    const timer =
+        document.getElementById("timer");
+
+
+    timer.textContent =
+        String(minutes).padStart(2,"0")
+        + ":" +
+        String(seconds).padStart(2,"0");
+
+
+    if(remainingSeconds <= 60){
+
+        timer.classList.add("warning");
+
+    }
+    else{
+
+        timer.classList.remove("warning");
+
+    }
+
+}
+
+
+/* =================================
+   FINISH
+   ================================= */
+
+function finishTest(){
+
+    clearInterval(timerInterval);
+
+
+    document
+        .getElementById("testPage")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("resultPage")
+        .classList.remove("hidden");
+
+
+    document.getElementById("finalScore")
+        .textContent =
+        score + "/" + questions.length;
+
+
+    const percentage =
+        Math.round(
+            score /
+            questions.length *
+            100
+        );
+
+
+    document.getElementById("resultText")
+        .textContent =
+        "You scored " +
+        percentage +
+        "%. Keep practicing and improve your SAT score.";
+
+}
+
+
+/* =================================
+   BACK TO CUSTOMIZE
+   ================================= */
+
+function backToCustomize(){
+
+    clearInterval(timerInterval);
+
+
+    document
+        .getElementById("testPage")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("resultPage")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("customizePage")
+        .classList.remove("hidden");
+
+}
+
+
+/* =================================
+   THEME
+   ================================= */
+
+function toggleTheme(){
+
+    document.body
+        .classList.toggle("night");
+
+
+    localStorage.setItem(
+        "satTheme",
+        document.body.classList.contains("night")
+            ? "night"
+            : "day"
+    );
+
+}
+
+
+if(
+    localStorage.getItem("satTheme")
+    === "night"
+){
+
+    document.body
+        .classList.add("night");
+
+}
+
+</script>
+
+</body>
+</html>

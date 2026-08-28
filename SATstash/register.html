@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SATstash — Sign Up</title>
+
+<style>
+:root{
+--bg:#F4F1EA;
+--surface:#FFFDF8;
+--surface2:#F8F5EE;
+--primary:#183A37;
+--primary2:#102F2C;
+--gold:#C59D5F;
+--text:#17211F;
+--muted:#68736F;
+--border:#DED9CF;
+--shadow:0 20px 55px rgba(24,58,55,.09);
+--danger:#c85c5c;
+--success:#31956b;
+}
+
+body.night{
+--bg:#080D12;
+--surface:#101922;
+--surface2:#141F29;
+--primary:#D8B978;
+--primary2:#E5C98E;
+--gold:#D8B978;
+--text:#F3EFE6;
+--muted:#93A09D;
+--border:#26323B;
+--shadow:0 25px 70px rgba(0,0,0,.38);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+font-family:Inter,Arial,sans-serif;
+background:var(--bg);
+color:var(--text);
+transition:.4s;
+min-height:100vh;
+}
+
+.navbar{
+height:74px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 6%;
+background:var(--surface);
+border-bottom:1px solid var(--border);
+}
+
+.logo{font-size:21px;font-weight:800;text-decoration:none;color:var(--text)}
+.logo span{color:var(--gold)}
+
+.theme{
+width:38px;
+height:38px;
+border:1px solid var(--border);
+border-radius:50%;
+background:var(--surface);
+color:var(--text);
+cursor:pointer;
+}
+
+.wrap{
+max-width:440px;
+margin:60px auto;
+padding:0 22px;
+}
+
+.badge{
+display:inline-block;
+padding:7px 13px;
+border:1px solid var(--gold);
+border-radius:30px;
+color:var(--gold);
+font-size:10px;
+font-weight:800;
+letter-spacing:1.3px;
+}
+
+h1{
+font-size:34px;
+letter-spacing:-1.5px;
+margin-top:16px;
+}
+
+.subtitle{
+color:var(--muted);
+font-size:13px;
+margin-top:7px;
+margin-bottom:26px;
+}
+
+.panel{
+padding:30px;
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:20px;
+box-shadow:var(--shadow);
+}
+
+.field{margin-bottom:16px}
+
+.field label{
+display:block;
+font-size:11px;
+font-weight:800;
+letter-spacing:.5px;
+color:var(--muted);
+text-transform:uppercase;
+margin-bottom:7px;
+}
+
+.field input{
+width:100%;
+padding:13px 14px;
+border:1px solid var(--border);
+border-radius:10px;
+background:var(--bg);
+color:var(--text);
+font-size:14px;
+outline:none;
+}
+
+.field input:focus{border-color:var(--gold)}
+
+.row2{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.submit{
+width:100%;
+margin-top:8px;
+padding:14px;
+border:0;
+border-radius:10px;
+background:var(--primary);
+color:white;
+font-weight:800;
+font-size:14px;
+cursor:pointer;
+transition:.2s;
+}
+
+.submit:hover{background:var(--primary2)}
+.submit:disabled{opacity:.6;cursor:not-allowed}
+
+.msg{
+margin-top:14px;
+padding:12px 14px;
+border-radius:10px;
+font-size:12px;
+display:none;
+}
+
+.msg.error{
+display:block;
+background:rgba(200,92,92,.12);
+color:var(--danger);
+border:1px solid var(--danger);
+}
+
+.msg.success{
+display:block;
+background:rgba(49,149,107,.12);
+color:var(--success);
+border:1px solid var(--success);
+}
+
+.switch{
+text-align:center;
+margin-top:20px;
+font-size:12px;
+color:var(--muted);
+}
+
+.switch a{
+color:var(--gold);
+font-weight:700;
+text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+<a href="index.html" class="logo">SAT<span>stash</span></a>
+<button class="theme" onclick="toggleTheme()">◐</button>
+</nav>
+
+<main class="wrap">
+
+<div class="badge">CREATE ACCOUNT</div>
+<h1>Join SATstash.</h1>
+<p class="subtitle">Create your account to track your SAT progress.</p>
+
+<div class="panel">
+
+<form id="signupForm">
+
+<div class="field">
+<label>Nickname</label>
+<input type="text" id="nickname" placeholder="e.g. Abdulatif" required maxlength="30">
+</div>
+
+<div class="field">
+<label>Email</label>
+<input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
+</div>
+
+<div class="field">
+<label>Age</label>
+<input type="number" id="age" placeholder="e.g. 17" min="10" max="100" required>
+</div>
+
+<div class="row2">
+
+<div class="field">
+<label>Password</label>
+<input type="password" id="password" placeholder="At least 6 characters" required minlength="6" autocomplete="new-password">
+</div>
+
+<div class="field">
+<label>Confirm</label>
+<input type="password" id="confirmPassword" placeholder="Repeat password" required minlength="6" autocomplete="new-password">
+</div>
+
+</div>
+
+<button type="submit" class="submit" id="submitBtn">Create Account</button>
+
+<div class="msg" id="msg"></div>
+
+</form>
+
+</div>
+
+<div class="switch">
+Already have an account? <a href="login.html">Log in</a>
+</div>
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+function toggleTheme(){
+document.body.classList.toggle("night");
+localStorage.setItem("satTheme", document.body.classList.contains("night") ? "night" : "day");
+}
+if(localStorage.getItem("satTheme")==="night"){
+document.body.classList.add("night");
+}
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCYOfHLlVqgxMEiXntV5sSANw6tHqRYAk8",
+  authDomain: "satstash-2671c.firebaseapp.com",
+  projectId: "satstash-2671c",
+  storageBucket: "satstash-2671c.firebasestorage.app",
+  messagingSenderId: "602562551480",
+  appId: "1:602562551480:web:d41a401a3299dc53c6de4d",
+  measurementId: "G-LBWXXKYRCJ"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+const form = document.getElementById("signupForm");
+const msg = document.getElementById("msg");
+const submitBtn = document.getElementById("submitBtn");
+
+function showMessage(text, type){
+    msg.textContent = text;
+    msg.className = "msg " + type;
+}
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const nickname = document.getElementById("nickname").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const age = Number(document.getElementById("age").value);
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if(password !== confirmPassword){
+        showMessage("Passwords do not match.", "error");
+        return;
+    }
+
+    if(age < 10 || age > 100){
+        showMessage("Please enter a valid age.", "error");
+        return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Creating account...";
+
+    try{
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        await user.updateProfile({ displayName: nickname });
+
+        await db.collection("users").doc(user.uid).set({
+            nickname: nickname,
+            email: email,
+            age: age,
+            createdAt: new Date().toISOString()
+        });
+
+        showMessage("Account created! Redirecting...", "success");
+        setTimeout(() => { location.href = "index.html"; }, 1200);
+
+    }catch(error){
+        console.error(error);
+        let text = "Something went wrong. Please try again.";
+        if(error.code === "auth/email-already-in-use"){
+            text = "This email is already registered. Try logging in instead.";
+        }else if(error.code === "auth/invalid-email"){
+            text = "Please enter a valid email address.";
+        }else if(error.code === "auth/weak-password"){
+            text = "Password should be at least 6 characters.";
+        }
+        showMessage(text, "error");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Create Account";
+    }
+});
+</script>
+
+</body>
+</html>

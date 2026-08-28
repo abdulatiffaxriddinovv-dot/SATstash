@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SATstash — Profile</title>
+
+<style>
+:root{
+--bg:#F4F1EA;
+--surface:#FFFDF8;
+--surface2:#F8F5EE;
+--primary:#183A37;
+--primary2:#102F2C;
+--gold:#C59D5F;
+--text:#17211F;
+--muted:#68736F;
+--border:#DED9CF;
+--shadow:0 20px 55px rgba(24,58,55,.09);
+--danger:#c85c5c;
+--success:#31956b;
+}
+
+body.night{
+--bg:#080D12;
+--surface:#101922;
+--surface2:#141F29;
+--primary:#D8B978;
+--primary2:#E5C98E;
+--gold:#D8B978;
+--text:#F3EFE6;
+--muted:#93A09D;
+--border:#26323B;
+--shadow:0 25px 70px rgba(0,0,0,.38);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+font-family:Inter,Arial,sans-serif;
+background:var(--bg);
+color:var(--text);
+transition:background .4s,color .4s;
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(14px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes pop{
+0%{transform:scale(1)}
+40%{transform:scale(1.18)}
+100%{transform:scale(1)}
+}
+
+@keyframes dotFill{
+from{transform:scale(.4);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
+
+@keyframes pulseRing{
+0%{box-shadow:0 0 0 0 rgba(197,157,95,.45)}
+70%{box-shadow:0 0 0 14px rgba(197,157,95,0)}
+100%{box-shadow:0 0 0 0 rgba(197,157,95,0)}
+}
+
+.navbar{
+height:74px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 6%;
+background:var(--surface);
+border-bottom:1px solid var(--border);
+position:sticky;
+top:0;
+z-index:10;
+}
+
+.logo{font-size:21px;font-weight:800;letter-spacing:-.8px;text-decoration:none;color:var(--text)}
+.logo span{color:var(--gold)}
+
+.nav{display:flex;align-items:center;gap:20px}
+
+.nav a{
+text-decoration:none;
+color:var(--muted);
+font-size:13px;
+font-weight:600;
+transition:color .2s;
+}
+
+.nav a:hover{color:var(--gold)}
+
+.logout{
+display:flex;
+align-items:center;
+gap:6px;
+border:1px solid var(--border);
+background:var(--surface2);
+color:var(--muted);
+padding:9px 12px;
+border-radius:8px;
+font-size:11px;
+font-weight:700;
+cursor:pointer;
+transition:.2s;
+}
+
+.logout:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px)}
+.logout svg{width:14px;height:14px}
+
+.theme{
+width:38px;
+height:38px;
+display:flex;
+align-items:center;
+justify-content:center;
+border:1px solid var(--border);
+border-radius:50%;
+background:var(--surface);
+color:var(--text);
+cursor:pointer;
+transition:.25s;
+}
+
+.theme:hover{border-color:var(--gold);transform:rotate(20deg)}
+.theme svg{width:17px;height:17px}
+
+.container{max-width:1180px;margin:auto;padding:70px 25px}
+
+.hero{
+display:grid;
+grid-template-columns:1fr 400px;
+gap:70px;
+align-items:center;
+margin-bottom:50px;
+animation:fadeUp .6s ease both;
+}
+
+.badge{
+display:inline-flex;
+align-items:center;
+gap:6px;
+padding:7px 13px;
+border:1px solid var(--gold);
+border-radius:30px;
+color:var(--gold);
+font-size:10px;
+font-weight:800;
+letter-spacing:1.4px;
+}
+
+.badge svg{width:11px;height:11px}
+
+h1{
+font-size:clamp(40px,5.5vw,60px);
+line-height:1;
+letter-spacing:-3px;
+margin-top:22px;
+}
+
+h1 span{color:var(--gold)}
+
+.hero p{
+margin-top:23px;
+max-width:520px;
+color:var(--muted);
+line-height:1.75;
+font-size:15px;
+}
+
+.preview{
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:22px;
+padding:32px;
+box-shadow:var(--shadow);
+text-align:center;
+transition:transform .3s,box-shadow .3s;
+}
+
+.preview:hover{transform:translateY(-4px)}
+
+.avatar-wrap{
+position:relative;
+width:92px;
+height:92px;
+margin:0 auto;
+}
+
+.avatar{
+width:92px;
+height:92px;
+border-radius:50%;
+background:linear-gradient(145deg,var(--primary),var(--primary2));
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:32px;
+font-weight:800;
+overflow:hidden;
+animation:pulseRing 2.4s ease-out 1;
+}
+
+.avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+body.night .avatar{color:#0a1014}
+
+.avatar-edit{
+position:absolute;
+bottom:-2px;
+right:-2px;
+width:30px;
+height:30px;
+border-radius:50%;
+background:var(--gold);
+border:3px solid var(--surface);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:.2s;
+}
+
+.avatar-edit:hover{transform:scale(1.12) rotate(-8deg)}
+.avatar-edit svg{width:13px;height:13px;color:var(--primary2)}
+
+.preview-name{
+font-weight:800;
+font-size:18px;
+margin-top:16px;
+}
+
+.preview-email{
+color:var(--muted);
+font-size:12px;
+margin-top:4px;
+}
+
+.photo-msg{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:6px;
+margin-top:10px;
+font-size:11px;
+color:var(--muted);
+opacity:0;
+height:0;
+overflow:hidden;
+transition:opacity .3s;
+}
+
+.photo-msg.show{opacity:1;height:auto}
+
+.spinner{
+width:11px;
+height:11px;
+border:2px solid var(--border);
+border-top-color:var(--gold);
+border-radius:50%;
+animation:spin .7s linear infinite;
+display:none;
+}
+
+.photo-msg.loading .spinner{display:inline-block}
+
+.section-title{
+margin-bottom:20px;
+animation:fadeUp .6s ease both;
+animation-delay:.1s;
+}
+
+.section-title h2{font-size:25px;letter-spacing:-1px}
+.section-title p{margin-top:5px;color:var(--muted);font-size:12px}
+
+.info{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
+margin-bottom:50px;
+animation:fadeUp .6s ease both;
+animation-delay:.15s;
+}
+
+.info div{
+padding:20px;
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:13px;
+text-align:center;
+transition:.25s;
+}
+
+.info div:hover{
+transform:translateY(-4px);
+box-shadow:var(--shadow);
+border-color:var(--gold);
+}
+
+.info strong{display:block;font-size:24px;color:var(--primary)}
+.info span{display:block;margin-top:5px;font-size:11px;color:var(--muted)}
+
+.week-card{
+padding:28px 30px;
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:16px;
+margin-bottom:50px;
+animation:fadeUp .6s ease both;
+animation-delay:.2s;
+}
+
+.week-card-head{
+display:flex;
+align-items:center;
+gap:8px;
+margin-bottom:4px;
+}
+
+.week-card-head svg{width:16px;height:16px;color:var(--gold)}
+.week-card h3{font-size:15px}
+
+.streak-line{color:var(--muted);font-size:12px;margin-bottom:22px}
+.streak-line strong{color:var(--gold)}
+
+.week-dots{
+display:flex;
+justify-content:space-between;
+gap:8px;
+}
+
+.day{
+flex:1;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:8px;
+}
+
+.day .dot{
+width:100%;
+max-width:38px;
+aspect-ratio:1;
+border-radius:50%;
+border:2px solid var(--border);
+background:var(--surface2);
+transition:.2s;
+}
+
+.day .dot.active{
+background:linear-gradient(145deg,var(--primary),var(--gold));
+border-color:var(--gold);
+animation:dotFill .4s ease both;
+}
+
+.day .label{
+font-size:10px;
+color:var(--muted);
+font-weight:700;
+text-transform:uppercase;
+}
+
+.day.today .label{color:var(--gold)}
+.day.today .dot{border-width:2px;border-color:var(--gold)}
+
+.grid{
+display:grid;
+grid-template-columns:1fr;
+gap:14px;
+animation:fadeUp .6s ease both;
+animation-delay:.25s;
+}
+
+.card{
+padding:30px;
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:16px;
+transition:.25s;
+}
+
+.card:hover{box-shadow:var(--shadow);border-color:var(--gold)}
+
+.card-head{
+display:flex;
+align-items:center;
+gap:8px;
+margin-bottom:20px;
+}
+
+.card-head svg{width:16px;height:16px;color:var(--gold)}
+.card h3{font-size:16px}
+
+.field{margin-bottom:16px}
+
+.field label{
+display:block;
+font-size:11px;
+font-weight:800;
+letter-spacing:.5px;
+color:var(--muted);
+text-transform:uppercase;
+margin-bottom:7px;
+}
+
+.field input{
+width:100%;
+padding:13px 14px;
+border:1px solid var(--border);
+border-radius:10px;
+background:var(--bg);
+color:var(--text);
+font-size:14px;
+outline:none;
+transition:border-color .2s;
+}
+
+.field input:focus{border-color:var(--gold)}
+.field input:disabled{color:var(--muted);cursor:not-allowed}
+
+.hint{
+display:flex;
+align-items:center;
+gap:5px;
+margin-top:6px;
+font-size:11px;
+color:var(--muted);
+}
+
+.hint svg{width:11px;height:11px;flex-shrink:0}
+.hint.locked{color:var(--gold)}
+
+.btn{
+display:inline-flex;
+align-items:center;
+gap:7px;
+border:none;
+border-radius:9px;
+padding:13px 20px;
+background:var(--primary);
+color:#fff;
+font-weight:700;
+font-size:12px;
+cursor:pointer;
+transition:.25s;
+}
+
+.btn svg{width:14px;height:14px}
+.btn:hover{transform:translateY(-2px);background:var(--primary2)}
+.btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+.msg{
+display:flex;
+align-items:center;
+gap:8px;
+margin-top:14px;
+padding:12px 14px;
+border-radius:10px;
+font-size:12px;
+opacity:0;
+height:0;
+overflow:hidden;
+transition:opacity .3s;
+}
+
+.msg svg{width:14px;height:14px;flex-shrink:0}
+
+.msg.error{
+opacity:1;height:auto;
+background:rgba(200,92,92,.12);
+color:var(--danger);
+border:1px solid var(--danger);
+}
+
+.msg.success{
+opacity:1;height:auto;
+background:rgba(49,149,107,.12);
+color:var(--success);
+border:1px solid var(--success);
+}
+
+.footer{
+text-align:center;
+padding:26px 20px;
+color:var(--muted);
+font-size:12px;
+border-top:1px solid var(--border);
+margin-top:40px;
+}
+
+.footer span{color:var(--gold);font-weight:700}
+
+.streak-pop{
+animation:pop .4s ease;
+}
+
+@media(max-width:850px){
+.hero{grid-template-columns:1fr}
+}
+
+@media(max-width:600px){
+.container{padding:45px 17px}
+.info{grid-template-columns:1fr}
+.nav a{display:none}
+.week-dots{gap:5px}
+.day .label{font-size:8px}
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<a href="index.html" class="logo">SAT<span>stash</span></a>
+
+<div class="nav">
+<a href="index.html">Home</a>
+<a href="practice.html">Practice</a>
+
+<button id="logoutBtn" class="logout">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+Logout
+</button>
+
+<button class="theme" onclick="toggleTheme()" id="themeBtn">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+
+</div>
+
+</nav>
+
+<main class="container">
+
+<section class="hero">
+
+<div>
+
+<div class="badge">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+YOUR ACCOUNT
+</div>
+
+<h1>Your <span>profile.</span></h1>
+
+<p>Manage your account details and track how far you've come in your SAT preparation.</p>
+
+</div>
+
+<div class="preview">
+
+<div class="avatar-wrap">
+<div class="avatar" id="avatarBox">?</div>
+<div class="avatar-edit" id="avatarEditBtn" title="Change photo">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+</div>
+<input type="file" id="photoInput" accept="image/*" style="display:none">
+</div>
+
+<div class="preview-name" id="displayNickname">Loading...</div>
+<div class="preview-email" id="displayEmail"></div>
+
+<div class="photo-msg" id="photoMsg">
+<span class="spinner"></span>
+<span id="photoMsgText"></span>
+</div>
+
+</div>
+
+</section>
+
+<div class="info">
+<div><strong id="statAge">—</strong><span>Age</span></div>
+<div><strong id="statTests">0</strong><span>Tests Taken</span></div>
+<div><strong id="statWords">0</strong><span>Words Learned</span></div>
+</div>
+
+<div class="week-card">
+
+<div class="week-card-head">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+<h3>Weekly activity</h3>
+</div>
+
+<div class="streak-line">Current streak: <strong id="streakCount">0 days</strong></div>
+
+<div class="week-dots" id="weekDots"></div>
+
+</div>
+
+<section>
+
+<div class="section-title">
+<h2>Account details</h2>
+<p>Update your personal information.</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+
+<div class="card-head">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+<h3>Edit your information</h3>
+</div>
+
+<form id="profileForm">
+
+<div class="field">
+<label>Nickname</label>
+<input type="text" id="nickname" maxlength="30" required>
+<div class="hint" id="nicknameHint"></div>
+</div>
+
+<div class="field">
+<label>Email</label>
+<input type="email" id="email" disabled>
+</div>
+
+<div class="field">
+<label>Age</label>
+<input type="number" id="age" min="10" max="100" required>
+</div>
+
+<button type="submit" class="btn" id="saveBtn">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+Save Changes
+</button>
+
+<div class="msg" id="msg"></div>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<footer class="footer">
+© 2026 SATstash — Made by <span>Faxriddinov Abdulatif</span>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+function toggleTheme(){
+document.body.classList.toggle("night");
+localStorage.setItem("satTheme", document.body.classList.contains("night") ? "night" : "day");
+}
+if(localStorage.getItem("satTheme")==="night"){
+document.body.classList.add("night");
+}
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCYOfHLlVqgxMEiXntV5sSANw6tHqRYAk8",
+  authDomain: "satstash-2671c.firebaseapp.com",
+  projectId: "satstash-2671c",
+  storageBucket: "satstash-2671c.firebasestorage.app",
+  messagingSenderId: "602562551480",
+  appId: "1:602562551480:web:d41a401a3299dc53c6de4d",
+  measurementId: "G-LBWXXKYRCJ"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+let currentUser = null;
+let userData = {};
+
+const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+
+const nicknameInput = document.getElementById("nickname");
+const emailInput = document.getElementById("email");
+const ageInput = document.getElementById("age");
+const nicknameHint = document.getElementById("nicknameHint");
+const displayNickname = document.getElementById("displayNickname");
+const displayEmail = document.getElementById("displayEmail");
+const avatarBox = document.getElementById("avatarBox");
+const statAge = document.getElementById("statAge");
+const streakCount = document.getElementById("streakCount");
+const weekDots = document.getElementById("weekDots");
+const msg = document.getElementById("msg");
+const saveBtn = document.getElementById("saveBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const avatarEditBtn = document.getElementById("avatarEditBtn");
+const photoInput = document.getElementById("photoInput");
+const photoMsg = document.getElementById("photoMsg");
+const photoMsgText = document.getElementById("photoMsgText");
+
+const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+const ICON_ALERT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+const ICON_CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+
+function showMessage(text, type){
+    msg.innerHTML = (type === "success" ? ICON_CHECK : ICON_ALERT) + "<span>" + text + "</span>";
+    msg.className = "msg " + type;
+}
+
+function showPhotoMsg(text, loading){
+    photoMsgText.textContent = text;
+    photoMsg.className = "photo-msg show" + (loading ? " loading" : "");
+}
+
+function todayStr(d){
+    return d.toISOString().slice(0,10);
+}
+
+function setAvatar(nicknameForLetter, photoBase64){
+    if(photoBase64){
+        avatarBox.innerHTML = "<img src='" + photoBase64 + "'>";
+    }else{
+        avatarBox.textContent = (nicknameForLetter || "U").charAt(0).toUpperCase();
+    }
+}
+
+function nicknameCooldownInfo(nicknameUpdatedAt){
+    if(!nicknameUpdatedAt){
+        return { locked:false, daysLeft:0 };
+    }
+    const last = new Date(nicknameUpdatedAt).getTime();
+    const now = Date.now();
+    const elapsed = now - last;
+    if(elapsed >= WEEK_MS){
+        return { locked:false, daysLeft:0 };
+    }
+    const daysLeft = Math.ceil((WEEK_MS - elapsed) / (24*60*60*1000));
+    return { locked:true, daysLeft:daysLeft };
+}
+
+function refreshNicknameHint(){
+    const info = nicknameCooldownInfo(userData.nicknameUpdatedAt);
+    if(info.locked){
+        nicknameHint.innerHTML = ICON_CLOCK + "<span>You can change your nickname again in " + info.daysLeft + " day(s).</span>";
+        nicknameHint.className = "hint locked";
+    }else{
+        nicknameHint.innerHTML = ICON_CLOCK + "<span>You can change your nickname once every 7 days.</span>";
+        nicknameHint.className = "hint";
+    }
+}
+
+function updateDailyProgress(data){
+
+    const today = todayStr(new Date());
+    let log = Array.isArray(data.activityLog) ? data.activityLog.slice() : [];
+    let streak = Number(data.streak) || 0;
+    let isNewDay = false;
+
+    if(!log.includes(today)){
+
+        isNewDay = true;
+        const yesterday = todayStr(new Date(Date.now() - 86400000));
+
+        if(data.lastActive === yesterday){
+            streak = streak + 1;
+        }else{
+            streak = 1;
+        }
+
+        log.push(today);
+
+        if(log.length > 30){
+            log = log.slice(log.length - 30);
+        }
+
+        db.collection("users").doc(currentUser.uid).set({
+            activityLog: log,
+            lastActive: today,
+            streak: streak
+        }, { merge:true }).catch(err => console.error(err));
+
+        data.activityLog = log;
+        data.lastActive = today;
+        data.streak = streak;
+    }
+
+    renderWeek(log);
+    streakCount.textContent = streak + (streak === 1 ? " day" : " days");
+
+    if(isNewDay){
+        streakCount.classList.add("streak-pop");
+        setTimeout(() => streakCount.classList.remove("streak-pop"), 400);
+    }
+}
+
+function renderWeek(log){
+
+    weekDots.innerHTML = "";
+    const dayLabels = ["S","M","T","W","T","F","S"];
+    const today = new Date();
+
+    for(let i = 6; i >= 0; i--){
+        const d = new Date(today.getTime() - i * 86400000);
+        const str = todayStr(d);
+        const isToday = i === 0;
+        const active = log.includes(str);
+
+        const dayEl = document.createElement("div");
+        dayEl.className = "day" + (isToday ? " today" : "");
+
+        const dot = document.createElement("div");
+        dot.className = "dot" + (active ? " active" : "");
+        dot.style.animationDelay = ((6-i) * 0.05) + "s";
+
+        const label = document.createElement("div");
+        label.className = "label";
+        label.textContent = dayLabels[d.getDay()];
+
+        dayEl.appendChild(dot);
+        dayEl.appendChild(label);
+        weekDots.appendChild(dayEl);
+    }
+}
+
+auth.onAuthStateChanged(async (user) => {
+
+    if(!user){
+        window.location.href = "login.html";
+        return;
+    }
+
+    currentUser = user;
+    emailInput.value = user.email;
+    displayEmail.textContent = user.email;
+
+    try{
+        const doc = await db.collection("users").doc(user.uid).get();
+
+        if(doc.exists){
+            userData = doc.data();
+        }else{
+            userData = {
+                nickname: user.displayName || user.email.split("@")[0],
+                email: user.email,
+                age: ""
+            };
+        }
+
+        nicknameInput.value = userData.nickname || "";
+        ageInput.value = userData.age || "";
+        displayNickname.textContent = userData.nickname || user.email.split("@")[0];
+        statAge.textContent = userData.age || "—";
+
+        setAvatar(userData.nickname, userData.photoBase64);
+        refreshNicknameHint();
+        updateDailyProgress(userData);
+
+    }catch(error){
+        console.error(error);
+        showMessage("Could not load profile data.", "error");
+    }
+
+});
+
+document.getElementById("profileForm").addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    if(!currentUser) return;
+
+    const newNickname = nicknameInput.value.trim();
+    const age = Number(ageInput.value);
+
+    if(age < 10 || age > 100){
+        showMessage("Please enter a valid age.", "error");
+        return;
+    }
+
+    const nicknameChanged = newNickname !== (userData.nickname || "");
+    const cooldown = nicknameCooldownInfo(userData.nicknameUpdatedAt);
+
+    if(nicknameChanged && cooldown.locked){
+        showMessage("You can only change your nickname once every 7 days. Try again in " + cooldown.daysLeft + " day(s).", "error");
+        nicknameInput.value = userData.nickname || "";
+        return;
+    }
+
+    saveBtn.disabled = true;
+
+    try{
+
+        const updatePayload = { age: age, email: currentUser.email };
+
+        if(nicknameChanged){
+            updatePayload.nickname = newNickname;
+            updatePayload.nicknameUpdatedAt = new Date().toISOString();
+        }
+
+        await db.collection("users").doc(currentUser.uid).set(updatePayload, { merge: true });
+
+        if(nicknameChanged){
+            await currentUser.updateProfile({ displayName: newNickname });
+            userData.nickname = newNickname;
+            userData.nicknameUpdatedAt = updatePayload.nicknameUpdatedAt;
+            displayNickname.textContent = newNickname;
+            setAvatar(newNickname, userData.photoBase64);
+            refreshNicknameHint();
+        }
+
+        userData.age = age;
+        statAge.textContent = age;
+
+        showMessage("Profile updated successfully.", "success");
+
+    }catch(error){
+        console.error(error);
+        showMessage("Could not save changes. Please try again.", "error");
+    }finally{
+        saveBtn.disabled = false;
+    }
+
+});
+
+avatarEditBtn.addEventListener("click", () => {
+    photoInput.click();
+});
+
+photoInput.addEventListener("change", (e) => {
+
+    const file = e.target.files[0];
+    if(!file) return;
+
+    if(!file.type.startsWith("image/")){
+        showPhotoMsg("Please choose an image file.", false);
+        return;
+    }
+
+    showPhotoMsg("Uploading photo...", true);
+
+    const reader = new FileReader();
+
+    reader.onload = (readerEvent) => {
+
+        const img = new Image();
+
+        img.onload = async () => {
+
+            const size = 200;
+            const canvas = document.createElement("canvas");
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext("2d");
+
+            const minSide = Math.min(img.width, img.height);
+            const sx = (img.width - minSide) / 2;
+            const sy = (img.height - minSide) / 2;
+
+            ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, size, size);
+
+            const dataUrl = canvas.toDataURL("image/jpeg", 0.7);
+
+            try{
+
+                await db.collection("users").doc(currentUser.uid).set({
+                    photoBase64: dataUrl
+                }, { merge:true });
+
+                userData.photoBase64 = dataUrl;
+                setAvatar(userData.nickname, dataUrl);
+                showPhotoMsg("Photo updated!", false);
+
+                setTimeout(() => {
+                    photoMsg.className = "photo-msg";
+                }, 2200);
+
+            }catch(error){
+                console.error(error);
+                showPhotoMsg("Could not save photo. Try a smaller image.", false);
+            }
+
+        };
+
+        img.src = readerEvent.target.result;
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+logoutBtn.addEventListener("click", async () => {
+    logoutBtn.disabled = true;
+    try{
+        await auth.signOut();
+        window.location.href = "login.html";
+    }catch(error){
+        console.error(error);
+        logoutBtn.disabled = false;
+    }
+});
+</script>
+
+</body>
+</html>

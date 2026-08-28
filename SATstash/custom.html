@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SATstash — Custom Test</title>
+
+<style>
+:root{
+--bg:#F4F1EA;
+--surface:#FFFDF8;
+--surface2:#F8F5EE;
+--primary:#183A37;
+--primary2:#102F2C;
+--gold:#C59D5F;
+--text:#17211F;
+--muted:#68736F;
+--border:#DED9CF;
+--shadow:0 20px 55px rgba(24,58,55,.09);
+}
+
+body.night{
+--bg:#080D12;
+--surface:#101922;
+--surface2:#141F29;
+--primary:#D8B978;
+--primary2:#E5C98E;
+--gold:#D8B978;
+--text:#F3EFE6;
+--muted:#93A09D;
+--border:#26323B;
+--shadow:0 25px 70px rgba(0,0,0,.38);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+font-family:Inter,Arial,sans-serif;
+background:var(--bg);
+color:var(--text);
+transition:.4s;
+}
+
+.navbar{
+height:74px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 6%;
+background:var(--surface);
+border-bottom:1px solid var(--border);
+}
+
+.logo{font-size:21px;font-weight:800}
+.logo span{color:var(--gold)}
+
+.nav{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.nav a{
+text-decoration:none;
+color:var(--muted);
+font-size:13px;
+font-weight:600;
+}
+
+.theme{
+width:38px;
+height:38px;
+border:1px solid var(--border);
+border-radius:50%;
+background:var(--surface);
+color:var(--text);
+cursor:pointer;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:65px 22px;
+}
+
+.badge{
+display:inline-block;
+padding:7px 13px;
+border:1px solid var(--gold);
+border-radius:30px;
+color:var(--gold);
+font-size:10px;
+font-weight:800;
+letter-spacing:1.3px;
+}
+
+h1{
+font-size:42px;
+letter-spacing:-2px;
+margin-top:18px;
+}
+
+.subtitle{
+color:var(--muted);
+font-size:13px;
+margin-top:7px;
+}
+
+.panel{
+margin-top:28px;
+padding:30px;
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:20px;
+box-shadow:var(--shadow);
+}
+
+.setting{
+padding:20px 0;
+border-bottom:1px solid var(--border);
+}
+
+.setting:last-child{
+border-bottom:0;
+}
+
+.setting h3{
+font-size:15px;
+}
+
+.setting p{
+margin-top:5px;
+color:var(--muted);
+font-size:12px;
+}
+
+.options{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:15px;
+}
+
+.option{
+padding:10px 15px;
+border:1px solid var(--border);
+border-radius:8px;
+background:var(--surface);
+color:var(--text);
+cursor:pointer;
+font-size:12px;
+}
+
+.option.active{
+background:var(--primary);
+color:white;
+border-color:var(--primary);
+}
+
+.start{
+margin-top:28px;
+padding:13px 22px;
+border:0;
+border-radius:9px;
+background:var(--primary);
+color:white;
+font-weight:700;
+cursor:pointer;
+}
+
+@media(max-width:600px){
+.nav a{display:none}
+h1{font-size:34px}
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+<div class="logo">SAT<span>stash</span></div>
+
+<div class="nav">
+<a href="index.html">Home</a>
+<a href="practice.html">Practice</a>
+<a href="full-test.html">Full Test</a>
+<button class="theme" onclick="theme()">◐</button>
+</div>
+</nav>
+
+<main class="container">
+
+<div class="badge">CUSTOM TEST</div>
+
+<h1>Build your test.</h1>
+
+<p class="subtitle">
+Choose exactly what you want to practice.
+</p>
+
+<div class="panel">
+
+<div class="setting">
+<h3>Sections</h3>
+<p>Select the sections you want.</p>
+
+<div class="options">
+
+<button class="option active" onclick="select(this)">
+Math
+</button>
+
+<button class="option active" onclick="select(this)">
+Reading & Writing
+</button>
+
+</div>
+</div>
+
+
+<div class="setting">
+
+<h3>Difficulty</h3>
+<p>Choose your preferred difficulty.</p>
+
+<div class="options">
+
+<button class="option active" onclick="selectOnly(this)">
+Mixed
+</button>
+
+<button class="option" onclick="selectOnly(this)">
+Easy
+</button>
+
+<button class="option" onclick="selectOnly(this)">
+Medium
+</button>
+
+<button class="option" onclick="selectOnly(this)">
+Hard
+</button>
+
+</div>
+</div>
+
+
+<div class="setting">
+
+<h3>Questions</h3>
+<p>Choose the number of questions.</p>
+
+<div class="options">
+
+<button class="option active" onclick="selectOnly(this)">
+10
+</button>
+
+<button class="option" onclick="selectOnly(this)">
+20
+</button>
+
+<button class="option" onclick="selectOnly(this)">
+40
+</button>
+
+<button class="option" onclick="selectOnly(this)">
+54
+</button>
+
+</div>
+</div>
+
+
+<button class="start" onclick="startTest()">
+Start Custom Test
+</button>
+
+</div>
+
+</main>
+
+<script>
+
+function theme(){
+
+document.body.classList.toggle("night");
+
+localStorage.setItem(
+"satTheme",
+document.body.classList.contains("night")
+?"night":"day"
+);
+
+}
+
+if(localStorage.getItem("satTheme")==="night"){
+document.body.classList.add("night");
+}
+
+function select(button){
+button.classList.toggle("active");
+}
+
+function selectOnly(button){
+
+let parent=button.parentElement;
+
+parent.querySelectorAll(".option")
+.forEach(x=>x.classList.remove("active"));
+
+button.classList.add("active");
+
+}
+
+function startTest(){
+
+location.href="full-test.html";
+
+}
+
+</script>
+
+</body>
+</html>
